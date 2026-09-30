@@ -1,0 +1,64 @@
+# Informa aos editores que este é o arquivo raiz (não precisa buscar em pastas superiores)
+root = true
+
+# ====================================================================
+# REGRAS GLOBAIS (Para todos os arquivos)
+# ====================================================================
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# ====================================================================
+# REGRAS DO FRONT-END (React / Vite / Web)
+# ====================================================================
+[*.{js,jsx,ts,tsx,json,css,scss,html,yml,yaml}]
+indent_style = space
+indent_size = 2
+
+# ====================================================================
+# REGRAS DO BACK-END (C# / .NET)
+# ====================================================================
+[*.{cs,csproj,sln,slnx,xml}]
+indent_style = space
+indent_size = 4
+
+# --- Regras de Código .NET (O compilador vai avisar se sair do padrão) ---
+
+# Organização de 'using' (System sempre primeiro)
+dotnet_sort_system_directives_first = true
+
+# Modificadores de acesso (public, private) sempre explícitos
+dotnet_style_require_accessibility_modifiers = always:suggestion
+
+# Uso do 'var' no C#
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_var_elsewhere = true:suggestion
+
+# Nomenclatura Padrão C# (Evita que criem propriedades com letra minúscula)
+dotnet_naming_rule.properties_should_be_pascal_case.severity = suggestion
+dotnet_naming_rule.properties_should_be_pascal_case.symbols = properties
+dotnet_naming_rule.properties_should_be_pascal_case.style = pascal_case
+
+dotnet_naming_symbols.properties.applicable_kinds = property
+dotnet_naming_style.pascal_case.capitalization = pascal_case
+
+# Campos privados devem começar com _ (underline) e letra minúscula
+dotnet_naming_rule.private_fields_should_be_camel_case.severity = suggestion
+dotnet_naming_rule.private_fields_should_be_camel_case.symbols = private_fields
+dotnet_naming_rule.private_fields_should_be_camel_case.style = camel_case_underscore
+
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+dotnet_naming_style.camel_case_underscore.capitalization = camel_case
+dotnet_naming_style.camel_case_underscore.required_prefix = _
+
+# ====================================================================
+# EXCEÇÕES IMPORTANTES
+# ====================================================================
+
+# Markdown exige espaços duplos no final da linha para quebra de linha real
+[*.md]
+trim_trailing_whitespace = false
