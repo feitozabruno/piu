@@ -1,0 +1,13 @@
+@baseUrl = http://localhost:5000
+
+### Cadastrar Operador
+POST {{baseUrl}}/api/v1/auth/cadastrar
+Content-Type: application/json
+
+{
+    "usuario": "joao",
+    "senha": "123456",
+    "nome": "Joãozinho",
+    "cargo": "Operador"
+}
+

@@ -1,14 +1,13 @@
 using Microsoft.EntityFrameworkCore;
-using Piu.Api.Data;
 
-namespace Piu.Api.Extensions;
+namespace Piu.Api.Data;
 
-public static class ServiceCollectionExtensions
+public static class DatabaseExtension
 {
     public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection")
-            ?? throw new InvalidOperationException("Connection string 'DefaultConnection' não encontrada.");
+            ?? "Host=localhost;Port=5432;Database=local_db;Username=local_user;Password=local_password";
 
         services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
