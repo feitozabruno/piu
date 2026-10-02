@@ -10,7 +10,7 @@ using Piu.Api.Data;
 
 namespace Piu.Api.Data.Migrations
 {
-    [DbContext(typeof(PiuDbContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20260930102115_InitialCreate")]
     partial class InitialCreate
     {
