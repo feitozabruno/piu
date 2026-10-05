@@ -12,8 +12,8 @@ using Piu.Api.Data;
 namespace Piu.Api.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20261001230539_CreateOperadorTable")]
-    partial class CreateOperadorTable
+    [Migration("20261005222353_CriaTabelaOperador")]
+    partial class CriaTabelaOperador
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -185,6 +185,11 @@ namespace Piu.Api.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("Incubatorio")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");

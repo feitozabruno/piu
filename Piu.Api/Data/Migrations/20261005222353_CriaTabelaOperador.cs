@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Piu.Api.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateOperadorTable : Migration
+    public partial class CriaTabelaOperador : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,6 +33,7 @@ namespace Piu.Api.Data.Migrations
                     Id = table.Column<string>(type: "text", nullable: false),
                     Nome = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     Cargo = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Incubatorio = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Ativo = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),

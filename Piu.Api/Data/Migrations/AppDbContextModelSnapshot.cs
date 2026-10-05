@@ -183,6 +183,11 @@ namespace Piu.Api.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("Incubatorio")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
 
