@@ -8,8 +8,8 @@ public static class AuthExtension
 {
     public static IServiceCollection AddAuth(this IServiceCollection services)
     {
-        services.AddAuthentication(IdentityConstants.BearerScheme)
-                .AddBearerToken(IdentityConstants.BearerScheme);
+        services.AddAuthentication(IdentityConstants.ApplicationScheme)
+            .AddIdentityCookies();
 
         services.AddAuthorizationBuilder();
 
@@ -19,12 +19,26 @@ public static class AuthExtension
 
             options.Password.RequiredLength = 6;
             options.Password.RequireDigit = false;
-            options.Password.RequireUppercase = false;
             options.Password.RequireNonAlphanumeric = false;
             options.Password.RequireLowercase = false;
             options.Password.RequireUppercase = false;
         })
-        .AddEntityFrameworkStores<AppDbContext>();
+        .AddEntityFrameworkStores<AppDbContext>()
+        .AddSignInManager();
+
+        services.ConfigureApplicationCookie(options =>
+        {
+            options.Cookie.Name = "piu.session";
+            options.Cookie.HttpOnly = true;
+            options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+            options.Cookie.SameSite = SameSiteMode.Lax;
+
+            options.ExpireTimeSpan = TimeSpan.FromDays(40);
+            options.SlidingExpiration = true;
+
+            options.Events.OnRedirectToLogin = ctx => { ctx.Response.StatusCode = 401; return Task.CompletedTask; };
+            options.Events.OnRedirectToAccessDenied = ctx => { ctx.Response.StatusCode = 403; return Task.CompletedTask; };
+        });
 
         services.AddScoped<CadastrarOperadorService>();
 

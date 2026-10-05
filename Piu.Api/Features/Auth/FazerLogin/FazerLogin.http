@@ -1,0 +1,10 @@
+@baseUrl = http://localhost:5000
+
+### Fazer Login
+POST {{baseUrl}}/api/v1/auth/entrar
+Content-Type: application/json
+
+{
+    "usuario": "joao",
+    "senha": "123456"
+}

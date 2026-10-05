@@ -9,6 +9,7 @@ public class OperadorConfiguration : IEntityTypeConfiguration<Operador>
     {
         builder.Property(o => o.Nome).IsRequired().HasMaxLength(200);
         builder.Property(o => o.Cargo).IsRequired().HasMaxLength(50);
+        builder.Property(o => o.Incubatorio).IsRequired().HasMaxLength(50);
         builder.Property(o => o.Ativo).IsRequired().HasDefaultValue(true);
     }
 }
