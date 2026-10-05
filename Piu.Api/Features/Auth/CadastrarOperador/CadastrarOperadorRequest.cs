@@ -21,5 +21,10 @@ public record CadastrarOperadorRequest(
     [Required(ErrorMessage = Mensagens.CargoObrigatorio)]
     [MinLength(2, ErrorMessage = Mensagens.CargoCurto)]
     [MaxLength(50, ErrorMessage = Mensagens.CargoMuitoGrande)]
-    string Cargo
+    string Cargo,
+
+    [Required(ErrorMessage = Mensagens.NomeIncubatorioObrigatorio)]
+    [MinLength(2, ErrorMessage = Mensagens.NomeIncubatorioCurto)]
+    [MaxLength(50, ErrorMessage = Mensagens.NomeIncubatorioMuitoGrande)]
+    string Incubatorio
 );

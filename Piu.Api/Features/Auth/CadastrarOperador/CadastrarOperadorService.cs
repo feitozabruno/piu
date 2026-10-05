@@ -9,7 +9,8 @@ public class CadastrarOperadorService(UserManager<Operador> userManager)
         var operador = new Operador(
             username: request.Usuario,
             nome: request.Nome,
-            cargo: request.Cargo
+            cargo: request.Cargo,
+            incubatorio: request.Incubatorio
         );
 
         var resultado = await userManager.CreateAsync(

@@ -8,6 +8,7 @@ Content-Type: application/json
     "usuario": "joao",
     "senha": "123456",
     "nome": "Joãozinho",
-    "cargo": "Operador"
+    "cargo": "Operador",
+    "incubatorio": "DRD-180"
 }
 

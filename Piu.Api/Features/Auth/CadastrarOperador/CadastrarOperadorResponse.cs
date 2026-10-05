@@ -32,4 +32,7 @@ public static class Mensagens
     public const string CargoObrigatorio = "O cargo é obrigatório.";
     public const string CargoCurto = "O cargo precisa ter pelo menos 2 caracteres.";
     public const string CargoMuitoGrande = "O cargo pode ter no máximo 50 caracteres.";
+    public const string NomeIncubatorioObrigatorio = "O nome do incubatório é obrigatório.";
+    public const string NomeIncubatorioCurto = "O nome do incubatório precisa ter pelo menos 2 caracteres.";
+    public const string NomeIncubatorioMuitoGrande = "O nome do incubatorio pode ter no máximo 50 caracteres.";
 }
