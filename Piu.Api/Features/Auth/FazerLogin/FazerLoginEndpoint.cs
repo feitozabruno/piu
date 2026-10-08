@@ -12,8 +12,8 @@ public static class FazerLoginEndpoint
 
     private static async Task<IResult> EntrarAsync(
         FazerLoginRequest request,
-        UserManager<Operador> userManager,
-        SignInManager<Operador> signInManager)
+        UserManager<Usuario> userManager,
+        SignInManager<Usuario> signInManager)
     {
         var operador = await userManager.FindByNameAsync(request.Usuario);
 

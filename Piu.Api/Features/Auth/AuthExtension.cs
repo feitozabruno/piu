@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Piu.Api.Data;
-using Piu.Api.Features.Auth.CadastrarOperador;
+using Piu.Api.Features.Auth.CadastrarUsuario;
 
 namespace Piu.Api.Features.Auth;
 
@@ -13,7 +13,7 @@ public static class AuthExtension
 
         services.AddAuthorizationBuilder();
 
-        services.AddIdentityCore<Operador>(options =>
+        services.AddIdentityCore<Usuario>(options =>
         {
             options.User.RequireUniqueEmail = false;
 
@@ -40,7 +40,7 @@ public static class AuthExtension
             options.Events.OnRedirectToAccessDenied = ctx => { ctx.Response.StatusCode = 403; return Task.CompletedTask; };
         });
 
-        services.AddScoped<CadastrarOperadorService>();
+        services.AddScoped<CadastrarUsuarioHandler>();
 
         return services;
     }

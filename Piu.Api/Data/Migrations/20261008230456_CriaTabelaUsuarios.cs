@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Piu.Api.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class CriaTabelaOperador : Migration
+    public partial class CriaTabelaUsuarios : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
