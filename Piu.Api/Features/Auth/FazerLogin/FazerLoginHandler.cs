@@ -30,7 +30,6 @@ public class FazerLoginHandler(
             throw new ApplicationErrorException(FazerLoginErros.CredenciaisInvalidas);
         }
 
-        var principal = await signInManager.CreateUserPrincipalAsync(usuario);
-        return principal;
+        return await signInManager.CreateUserPrincipalAsync(usuario);
     }
 }

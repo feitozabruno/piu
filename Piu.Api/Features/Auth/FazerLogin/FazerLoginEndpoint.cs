@@ -7,18 +7,20 @@ public static class FazerLoginEndpoint
 {
     public static void Map(IEndpointRouteBuilder app)
     {
-        app.MapPost("/entrar", EntrarAsync);
+        app.MapPost("/entrar", EntrarAsync)
+            .AllowAnonymous();
     }
 
     private static async Task<IResult> EntrarAsync(
         FazerLoginRequest request,
         FazerLoginHandler handler)
     {
-        var login = await handler.HandleAsync(request);
+        var cookie = await handler.HandleAsync(request);
 
         return Results.SignIn(
-            login,
+            cookie,
             new AuthenticationProperties { IsPersistent = true },
-            IdentityConstants.ApplicationScheme);
+            IdentityConstants.ApplicationScheme
+        );
     }
 }

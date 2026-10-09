@@ -23,6 +23,10 @@ public static class AuthExtensions
             options.Password.RequireNonAlphanumeric = false;
             options.Password.RequireLowercase = false;
             options.Password.RequireUppercase = false;
+
+            options.Lockout.AllowedForNewUsers = true;
+            options.Lockout.MaxFailedAccessAttempts = 10;
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
         })
         .AddEntityFrameworkStores<AppDbContext>()
         .AddSignInManager();
@@ -37,8 +41,17 @@ public static class AuthExtensions
             options.ExpireTimeSpan = TimeSpan.FromDays(40);
             options.SlidingExpiration = true;
 
-            options.Events.OnRedirectToLogin = ctx => { ctx.Response.StatusCode = 401; return Task.CompletedTask; };
-            options.Events.OnRedirectToAccessDenied = ctx => { ctx.Response.StatusCode = 403; return Task.CompletedTask; };
+            options.Events.OnRedirectToLogin = ctx =>
+            {
+                ctx.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                return Task.CompletedTask;
+            };
+
+            options.Events.OnRedirectToAccessDenied = ctx =>
+            {
+                ctx.Response.StatusCode = StatusCodes.Status403Forbidden;
+                return Task.CompletedTask;
+            };
         });
 
         services.AddScoped<CadastrarUsuarioHandler>();
