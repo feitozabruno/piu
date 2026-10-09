@@ -20,7 +20,7 @@ public static class CadastrarUsuarioErros
     public const string NomeIncubatorioObrigatorio = "O nome do incubatório é obrigatório.";
     public const string NomeIncubatorioCurto = "O nome do incubatório precisa ter pelo menos 2 caracteres.";
     public const string NomeIncubatorioMuitoGrande = "O nome do incubatorio pode ter no máximo 50 caracteres.";
-    public static readonly ApplicationError UsuarioEmUso = new("USUARIO_EM_USO", "Este nome de usuário já está em uso.");
+    public static readonly ApplicationError UsuarioEmUso = new("USUARIO_EM_USO", "Este nome de usuário já está em uso.", StatusCodes.Status409Conflict);
     public static readonly ApplicationError SenhaInvalida = new("SENHA_INVALIDA", "A senha não atende aos requisitos de segurança.");
     public static readonly ApplicationError FalhaAoCadastrar = new("FALHA_AO_CADASTRAR_USUARIO", "Não foi possível cadastrar o usuário.");
 }
