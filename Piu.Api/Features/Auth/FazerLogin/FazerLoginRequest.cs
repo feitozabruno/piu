@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 namespace Piu.Api.Features.Auth.FazerLogin;
 
 public record FazerLoginRequest(
-    [Required(ErrorMessage = Mensagens.UsuarioObrigatorio)]
+    [Required(ErrorMessage = FazerLoginErros.UsuarioObrigatorio)]
     string Usuario,
 
-    [Required(ErrorMessage = Mensagens.SenhaObrigatoria)]
+    [Required(ErrorMessage = FazerLoginErros.SenhaObrigatoria)]
     string Senha
 );

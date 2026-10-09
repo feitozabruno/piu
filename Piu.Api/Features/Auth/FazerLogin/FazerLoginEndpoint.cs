@@ -12,36 +12,13 @@ public static class FazerLoginEndpoint
 
     private static async Task<IResult> EntrarAsync(
         FazerLoginRequest request,
-        UserManager<Usuario> userManager,
-        SignInManager<Usuario> signInManager)
+        FazerLoginHandler handler)
     {
-        var operador = await userManager.FindByNameAsync(request.Usuario);
-
-        if (operador is null || !operador.Ativo)
-            return CredenciaisInvalidas();
-
-        var resultado = await signInManager.CheckPasswordSignInAsync(
-            operador, request.Senha, lockoutOnFailure: true);
-
-        if (resultado.IsLockedOut)
-            return Results.Problem(
-                detail: Mensagens.ContaBloqueada,
-                statusCode: StatusCodes.Status429TooManyRequests
-            );
-
-        if (!resultado.Succeeded)
-            return CredenciaisInvalidas();
-
-        var principal = await signInManager.CreateUserPrincipalAsync(operador);
+        var login = await handler.HandleAsync(request);
 
         return Results.SignIn(
-            principal,
+            login,
             new AuthenticationProperties { IsPersistent = true },
             IdentityConstants.ApplicationScheme);
     }
-
-    private static IResult CredenciaisInvalidas() =>
-        Results.Problem(
-            detail: Mensagens.CredenciaisInvalidas,
-            statusCode: StatusCodes.Status401Unauthorized);
 }

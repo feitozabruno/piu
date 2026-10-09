@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Piu.Api.Infrastructure.Persistence;
 using Piu.Api.Features.Auth.CadastrarUsuario;
+using Piu.Api.Features.Auth.FazerLogin;
 
 namespace Piu.Api.Features.Auth;
 
@@ -41,6 +42,7 @@ public static class AuthExtensions
         });
 
         services.AddScoped<CadastrarUsuarioHandler>();
+        services.AddScoped<FazerLoginHandler>();
 
         return services;
     }
