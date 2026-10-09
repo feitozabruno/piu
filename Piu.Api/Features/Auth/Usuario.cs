@@ -28,10 +28,10 @@ public sealed class Usuario : IdentityUser
 
     public static Usuario Criar(string usuario, string nome, string cargo, string incubatorio)
     {
-        if (string.IsNullOrWhiteSpace(usuario)) throw new DomainException(ErrosUsuario.UsuarioObrigatorio);
-        if (string.IsNullOrWhiteSpace(nome)) throw new DomainException(ErrosUsuario.NomeObrigatorio);
-        if (string.IsNullOrWhiteSpace(cargo)) throw new DomainException(ErrosUsuario.CargoObrigatorio);
-        if (string.IsNullOrWhiteSpace(incubatorio)) throw new DomainException(ErrosUsuario.IncubatorioObrigatorio);
+        if (string.IsNullOrWhiteSpace(usuario)) throw new DomainException(UsuarioErros.UsuarioObrigatorio);
+        if (string.IsNullOrWhiteSpace(nome)) throw new DomainException(UsuarioErros.NomeObrigatorio);
+        if (string.IsNullOrWhiteSpace(cargo)) throw new DomainException(UsuarioErros.CargoObrigatorio);
+        if (string.IsNullOrWhiteSpace(incubatorio)) throw new DomainException(UsuarioErros.IncubatorioObrigatorio);
 
         return new Usuario(usuario, nome, cargo, incubatorio);
     }

@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Identity;
-using Piu.Api.Data;
+using Piu.Api.Infrastructure.Persistence;
 using Piu.Api.Features.Auth.CadastrarUsuario;
 
 namespace Piu.Api.Features.Auth;
 
-public static class AuthExtension
+public static class AuthExtensions
 {
     public static IServiceCollection AddAuth(this IServiceCollection services)
     {

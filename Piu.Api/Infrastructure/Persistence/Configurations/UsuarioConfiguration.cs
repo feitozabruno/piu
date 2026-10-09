@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Piu.Api.Features.Auth;
 
-namespace Piu.Api.Features.Auth;
+namespace Piu.Api.Infrastructure.Persistence.Configurations;
 
 public class UsuarioConfiguration : IEntityTypeConfiguration<Usuario>
 {

@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Piu.Api.Features.Auth;
+using Piu.Api.Infrastructure.Persistence.Configurations;
 
-namespace Piu.Api.Data;
+namespace Piu.Api.Infrastructure.Persistence;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext<Usuario>(options)
 {

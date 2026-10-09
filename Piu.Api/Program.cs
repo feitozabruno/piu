@@ -1,5 +1,5 @@
-using Piu.Api.Data;
-using Piu.Api.Extensions;
+using Piu.Api.Infrastructure.Persistence;
+using Piu.Api.Middleware;
 using Piu.Api.Features.Auth;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Piu.Api.Data;
+namespace Piu.Api.Infrastructure.Persistence;
 
-public static class DatabaseExtension
+public static class DatabaseExtensions
 {
     public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {

@@ -1,6 +1,4 @@
-using Piu.Api.Middleware;
-
-namespace Piu.Api.Extensions;
+namespace Piu.Api.Middleware;
 
 public static class ExceptionHandlingExtensions
 {
