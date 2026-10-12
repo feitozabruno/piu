@@ -1,0 +1,11 @@
+@baseUrl = http://localhost:5000
+
+### Cadastrar Incubatório
+POST {{baseUrl}}/api/v1/incubatorios/
+Content-Type: application/json
+
+{
+  "identificador": "180",
+  "nome": "Incubatório Dourados",
+  "sigla": "DRD"
+}
