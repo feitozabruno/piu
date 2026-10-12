@@ -54,9 +54,6 @@ public static class AuthExtensions
             };
         });
 
-        services.AddScoped<CadastrarUsuarioHandler>();
-        services.AddScoped<FazerLoginHandler>();
-
         return services;
     }
 }

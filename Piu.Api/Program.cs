@@ -1,12 +1,15 @@
 using Piu.Api.Infrastructure.Persistence;
 using Piu.Api.Middleware;
 using Piu.Api.Features.Auth;
+using Piu.Api.Features.Incubatorios;
+using Piu.Api.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddGlobalExceptionHandling();
 builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddAuth();
+builder.Services.AddHandlers();
 builder.Services.AddValidation();
 
 var app = builder.Build();
@@ -17,6 +20,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapAuth();
+app.MapIncubatorios();
 app.MapGet("/", () => "Hello, World!");
 
 app.Run();
