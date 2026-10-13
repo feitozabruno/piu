@@ -32,8 +32,8 @@ public class IncubatorioTests
         );
 
         Assert.NotNull(excecao);
-        Assert.Equal("IDENTIFICADOR_OBRIGATORIO", excecao.Error.Code);
-        Assert.Equal("O identificador é obrigatório.", excecao.Error.Message);
+        Assert.Equal(IncubatorioErros.IdentificadorObrigatorio.Code, excecao.Error.Code);
+        Assert.Equal(IncubatorioErros.IdentificadorObrigatorio.Message, excecao.Error.Message);
     }
 
     [Fact]
@@ -48,8 +48,8 @@ public class IncubatorioTests
         );
 
         Assert.NotNull(excecao);
-        Assert.Equal("IDENTIFICADOR_CURTO", excecao.Error.Code);
-        Assert.Equal("O identificador é muito curto.", excecao.Error.Message);
+        Assert.Equal(IncubatorioErros.IdentificadorCurto.Code, excecao.Error.Code);
+        Assert.Equal(IncubatorioErros.IdentificadorCurto.Message, excecao.Error.Message);
     }
 
     [Fact]
@@ -64,8 +64,8 @@ public class IncubatorioTests
         );
 
         Assert.NotNull(excecao);
-        Assert.Equal("IDENTIFICADOR_MUITO_GRANDE", excecao.Error.Code);
-        Assert.Equal("O identificador é muito grande.", excecao.Error.Message);
+        Assert.Equal(IncubatorioErros.IdentificadorMuitoGrande.Code, excecao.Error.Code);
+        Assert.Equal(IncubatorioErros.IdentificadorMuitoGrande.Message, excecao.Error.Message);
     }
 
     [Fact]
@@ -80,8 +80,8 @@ public class IncubatorioTests
         );
 
         Assert.NotNull(excecao);
-        Assert.Equal("NOME_OBRIGATORIO", excecao.Error.Code);
-        Assert.Equal("O nome é obrigatório.", excecao.Error.Message);
+        Assert.Equal(IncubatorioErros.NomeObrigatorio.Code, excecao.Error.Code);
+        Assert.Equal(IncubatorioErros.NomeObrigatorio.Message, excecao.Error.Message);
     }
 
     [Fact]
@@ -95,8 +95,8 @@ public class IncubatorioTests
             )
         );
         Assert.NotNull(excecao);
-        Assert.Equal("NOME_CURTO", excecao.Error.Code);
-        Assert.Equal("O nome é muito curto.", excecao.Error.Message);
+        Assert.Equal(IncubatorioErros.NomeCurto.Code, excecao.Error.Code);
+        Assert.Equal(IncubatorioErros.NomeCurto.Message, excecao.Error.Message);
     }
 
     [Fact]
@@ -110,8 +110,8 @@ public class IncubatorioTests
             )
         );
         Assert.NotNull(excecao);
-        Assert.Equal("NOME_MUITO_GRANDE", excecao.Error.Code);
-        Assert.Equal("O nome é muito grande.", excecao.Error.Message);
+        Assert.Equal(IncubatorioErros.NomeMuitoGrande.Code, excecao.Error.Code);
+        Assert.Equal(IncubatorioErros.NomeMuitoGrande.Message, excecao.Error.Message);
     }
 
     [Fact]
@@ -125,8 +125,8 @@ public class IncubatorioTests
             )
         );
         Assert.NotNull(excecao);
-        Assert.Equal("SIGLA_OBRIGATORIA", excecao.Error.Code);
-        Assert.Equal("A sigla é obrigatória.", excecao.Error.Message);
+        Assert.Equal(IncubatorioErros.SiglaObrigatoria.Code, excecao.Error.Code);
+        Assert.Equal(IncubatorioErros.SiglaObrigatoria.Message, excecao.Error.Message);
     }
 
     [Fact]
@@ -140,8 +140,8 @@ public class IncubatorioTests
             )
         );
         Assert.NotNull(excecao);
-        Assert.Equal("SIGLA_CURTA", excecao.Error.Code);
-        Assert.Equal("A sigla é muito curta.", excecao.Error.Message);
+        Assert.Equal(IncubatorioErros.SiglaCurta.Code, excecao.Error.Code);
+        Assert.Equal(IncubatorioErros.SiglaCurta.Message, excecao.Error.Message);
     }
 
     [Fact]
@@ -155,7 +155,7 @@ public class IncubatorioTests
             )
         );
         Assert.NotNull(excecao);
-        Assert.Equal("SIGLA_MUITO_GRANDE", excecao.Error.Code);
-        Assert.Equal("A sigla é muito grande.", excecao.Error.Message);
+        Assert.Equal(IncubatorioErros.SiglaMuitoGrande.Code, excecao.Error.Code);
+        Assert.Equal(IncubatorioErros.SiglaMuitoGrande.Message, excecao.Error.Message);
     }
 }
