@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using Piu.Api.Application;
+using Piu.Api.Infrastructure.Persistence.Configurations;
 
 namespace Piu.Api.Features.Auth.CadastrarUsuario;
 
@@ -8,13 +11,26 @@ public class CadastrarUsuarioHandler(UserManager<Usuario> userManager)
     public async Task<Usuario> HandleAsync(CadastrarUsuarioRequest request)
     {
         var usuario = Usuario.Criar(
-            usuario: request.Usuario.Trim(),
-            nome: request.Nome.Trim(),
-            cargo: request.Cargo.Trim(),
-            incubatorio: request.Incubatorio.Trim()
-        );
+            usuario: request.Usuario,
+            nome: request.Nome,
+            cargo: request.Cargo,
+            incubatorio: request.Incubatorio);
 
-        var resultado = await userManager.CreateAsync(user: usuario, password: request.Senha);
+        IdentityResult resultado;
+
+        try
+        {
+            resultado = await userManager.CreateAsync(usuario, request.Senha);
+        }
+        catch (DbUpdateException ex) when (
+            ex.InnerException is PostgresException
+            {
+                SqlState: PostgresErrorCodes.ForeignKeyViolation,
+                ConstraintName: UsuarioConstraints.FkIncubatorio
+            })
+        {
+            throw new ApplicationErrorException(CadastrarUsuarioErros.ErroIncubatorioInvalido);
+        }
 
         if (resultado.Succeeded) return usuario;
 
@@ -23,17 +39,16 @@ public class CadastrarUsuarioHandler(UserManager<Usuario> userManager)
             switch (erro.Code)
             {
                 case "DuplicateUserName":
-                    throw new ApplicationErrorException(CadastrarUsuarioErros.UsuarioEmUso);
+                    throw new ApplicationErrorException(CadastrarUsuarioErros.ErroUsuarioEmUso);
                 case "PasswordTooShort":
                 case "PasswordRequiresDigit":
                 case "PasswordRequiresUpper":
                 case "PasswordRequiresLower":
                 case "PasswordRequiresNonAlphanumeric":
-                    throw new ApplicationErrorException(CadastrarUsuarioErros.SenhaInvalida);
+                    throw new ApplicationErrorException(CadastrarUsuarioErros.ErroSenhaInvalida);
             }
         }
 
-        throw new ApplicationErrorException(
-            CadastrarUsuarioErros.FalhaAoCadastrar);
+        throw new ApplicationErrorException(CadastrarUsuarioErros.FalhaAoCadastrar);
     }
 }

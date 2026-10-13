@@ -186,8 +186,7 @@ namespace Piu.Api.Data.Migrations
 
                     b.Property<string>("Incubatorio")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("citext");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -228,6 +227,8 @@ namespace Piu.Api.Data.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Incubatorio");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -318,6 +319,16 @@ namespace Piu.Api.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Piu.Api.Features.Auth.Usuario", b =>
+                {
+                    b.HasOne("Piu.Api.Features.Incubatorios.Incubatorio", null)
+                        .WithMany()
+                        .HasForeignKey("Incubatorio")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_Usuarios_Incubatorios_IncubatorioIdentificador");
                 });
 #pragma warning restore 612, 618
         }
