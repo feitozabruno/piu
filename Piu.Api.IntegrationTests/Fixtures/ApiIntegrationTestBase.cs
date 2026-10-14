@@ -1,11 +1,18 @@
 namespace Piu.Api.IntegrationTests.Fixtures;
 
-public abstract class ApiIntegrationTestBase(
-    CustomWebApplicationFactory factory) : IAsyncLifetime
+public abstract class ApiIntegrationTestBase : IAsyncLifetime
 {
-    protected CustomWebApplicationFactory Factory { get; } = factory;
-    protected HttpClient Http { get; } = factory.CreateClient();
+    private readonly CustomWebApplicationFactory _factory;
+    protected readonly HttpClient ApiClient;
+    protected readonly AuthHelper Auth;
 
-    public Task InitializeAsync() => Factory.ResetDatabaseAsync();
+    public ApiIntegrationTestBase(CustomWebApplicationFactory factory)
+    {
+        _factory = factory;
+        ApiClient = factory.CreateClient();
+        Auth = new AuthHelper(ApiClient);
+    }
+
+    public Task InitializeAsync() => _factory.ResetDatabaseAsync();
     public Task DisposeAsync() => Task.CompletedTask;
 }
