@@ -1,0 +1,10 @@
+@baseUrl = http://localhost:5000
+
+### Cadastrar Lote
+POST {{baseUrl}}/api/v1/lotes/
+Content-Type: application/json
+
+{
+  "nome": "DRD02-010",
+  "dataNascimento": "2026-03-14"
+}
