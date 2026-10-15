@@ -30,7 +30,7 @@ public class CadastrarIncubatorioHandler(AppDbContext db)
             })
         {
             throw new ApplicationErrorException(
-                CadastrarIncubatorioErros.IdentificadorEmUsoErro);
+                CadastrarIncubatorioErros.ErroIdentificadorEmUso);
         }
 
         return incubatorio;

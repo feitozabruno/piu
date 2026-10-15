@@ -7,9 +7,8 @@ public static class CadastrarIncubatorioErros
     public const string IdentificadorObrigatorio = "O identificador do incubatório é obrigatório.";
     public const string IdentificadorCurto = "O identificador do incubatório precisa ter pelo menos {1} caracteres.";
     public const string IdentificadorMuitoGrande = "O identificador do incubatório pode ter no máximo {1} caracteres.";
-    public const string IdentificadorEmUso = "Este identificador do incubatório já está em uso.";
-    public static readonly ApplicationError IdentificadorEmUsoErro =
-        new("IDENTIFICADOR_EM_USO", IdentificadorEmUso, StatusCodes.Status409Conflict);
+    public static readonly ApplicationError ErroIdentificadorEmUso =
+        new("IDENTIFICADOR_EM_USO", "Este identificador do incubatório já está em uso.", StatusCodes.Status409Conflict);
 
     public const string NomeObrigatorio = "O nome do incubatório é obrigatório.";
     public const string NomeCurto = "O nome do incubatório precisa ter pelo menos {1} caracteres.";
