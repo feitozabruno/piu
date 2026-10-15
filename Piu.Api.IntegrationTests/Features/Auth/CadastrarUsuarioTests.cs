@@ -29,9 +29,9 @@ public sealed class CadastrarUsuarioEndpointTests(CustomWebApplicationFactory fa
             .ReadFromJsonAsync<CadastrarUsuarioResponse>();
 
         Assert.NotNull(usuario);
-        Assert.Equal("maria", usuario.Usuario);
-        Assert.Equal("Maria Silva", usuario.Nome);
-        Assert.Equal("INC-001", usuario.Incubatorio);
+        Assert.Equal(request.Usuario, usuario.Usuario);
+        Assert.Equal(request.Nome, usuario.Nome);
+        Assert.Equal(request.Incubatorio, usuario.Incubatorio);
     }
 
     [Fact]
