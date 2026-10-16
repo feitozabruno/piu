@@ -2,20 +2,15 @@ using Piu.Api.Domain;
 
 namespace Piu.Api.Features.Incubatorios;
 
-public class Incubatorio
+public sealed class Incubatorio
 {
-    public string Identificador { get; private set; }
-    public string Nome { get; private set; }
-    public string Sigla { get; private set; }
+    public string Identificador { get; private set; } = string.Empty;
+    public string Nome { get; private set; } = string.Empty;
+    public string Sigla { get; private set; } = string.Empty;
     public bool Ativo { get; private set; }
     public DateTime DataCadastro { get; private set; }
 
-    private Incubatorio()
-    {
-        Identificador = string.Empty;
-        Sigla = string.Empty;
-        Nome = string.Empty;
-    }
+    private Incubatorio() { }
 
     private Incubatorio(string identificador, string nome, string sigla)
     {
