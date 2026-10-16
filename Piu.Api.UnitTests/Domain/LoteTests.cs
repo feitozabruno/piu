@@ -11,7 +11,7 @@ public class LoteTests
         const string nome = "DRD01-010";
         var dataNascimento = new DateOnly(2026, 3, 14);
 
-        var resultado = Lote.Criar(nome, dataNascimento);
+        var resultado = Lote.Criar(nome, dataNascimento, "INC-001");
 
         Assert.NotNull(resultado);
         Assert.NotEqual(Guid.Empty, resultado.Id);
@@ -27,7 +27,8 @@ public class LoteTests
         var excecao = Assert.Throws<DomainException>(
             () => Lote.Criar(
                 nome: "",
-                dataNascimento: dataNascimento
+                dataNascimento: dataNascimento,
+                incubatorioIdentificador: "INC-001"
             )
         );
 
@@ -45,7 +46,8 @@ public class LoteTests
         var excecao = Assert.Throws<DomainException>(
             () => Lote.Criar(
                 nome: nome,
-                dataNascimento: dataNascimento
+                dataNascimento: dataNascimento,
+                incubatorioIdentificador: "INC-001"
             )
         );
 
@@ -63,7 +65,8 @@ public class LoteTests
         var excecao = Assert.Throws<DomainException>(
             () => Lote.Criar(
                 nome: nome,
-                dataNascimento: dataNascimento
+                dataNascimento: dataNascimento,
+                incubatorioIdentificador: "INC-001"
             )
         );
 
@@ -80,7 +83,8 @@ public class LoteTests
         var excecao = Assert.Throws<DomainException>(
             () => Lote.Criar(
                 nome: nome,
-                dataNascimento: default
+                dataNascimento: default,
+                incubatorioIdentificador: "INC-001"
             )
         );
 
@@ -98,7 +102,8 @@ public class LoteTests
         var excecao = Assert.Throws<DomainException>(
             () => Lote.Criar(
                 nome: nome,
-                dataNascimento: dataNascimento
+                dataNascimento: dataNascimento,
+                incubatorioIdentificador: "INC-001"
             )
         );
 
@@ -112,7 +117,7 @@ public class LoteTests
     {
         const string nome = "DRD01-010";
         var dataNascimento = new DateOnly(2026, 3, 14);
-        var lote = Lote.Criar(nome, dataNascimento);
+        var lote = Lote.Criar(nome, dataNascimento, "INC-001");
 
         var dataReferencia = new DateOnly(2026, 10, 16);
 
@@ -126,7 +131,7 @@ public class LoteTests
     {
         const string nome = "DRD01-010";
         var dataNascimento = new DateOnly(2026, 3, 14);
-        var lote = Lote.Criar(nome, dataNascimento);
+        var lote = Lote.Criar(nome, dataNascimento, "INC-001");
 
         var dataReferencia = new DateOnly(2025, 3, 14);
 

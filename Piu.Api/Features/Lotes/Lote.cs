@@ -1,4 +1,5 @@
 using Piu.Api.Domain;
+using Piu.Api.Features.Incubatorios;
 
 namespace Piu.Api.Features.Lotes;
 
@@ -7,19 +8,23 @@ public sealed class Lote
     public Guid Id { get; private set; }
     public string Nome { get; private set; } = string.Empty;
     public DateOnly DataNascimento { get; private set; }
+    public Incubatorio Incubatorio { get; private set; } = null!;
+    public string IncubatorioIdentificador { get; private set; } = string.Empty;
 
     private Lote() { }
 
-    private Lote(string nome, DateOnly dataNascimento)
+    private Lote(string nome, DateOnly dataNascimento, string incubatorioIdentificador)
     {
         Id = Guid.NewGuid();
         Nome = nome;
         DataNascimento = dataNascimento;
+        IncubatorioIdentificador = incubatorioIdentificador;
     }
 
-    public static Lote Criar(string nome, DateOnly dataNascimento)
+    public static Lote Criar(string nome, DateOnly dataNascimento, string incubatorioIdentificador)
     {
         nome = nome?.Trim() ?? string.Empty;
+        incubatorioIdentificador = incubatorioIdentificador?.Trim().ToUpperInvariant() ?? string.Empty;
 
         if (nome.Length == 0) throw new DomainException(LoteErros.NomeObrigatorio);
         if (nome.Length < LoteLimites.NomeMin) throw new DomainException(LoteErros.NomeCurto);
@@ -32,7 +37,10 @@ public sealed class Lote
             throw new DomainException(LoteErros.DataNascimentoInvalida);
         }
 
-        return new Lote(nome.ToUpperInvariant(), dataNascimento);
+        if (incubatorioIdentificador.Length == 0)
+            throw new DomainException(LoteErros.IncubatorioObrigatorio);
+
+        return new Lote(nome.ToUpperInvariant(), dataNascimento, incubatorioIdentificador);
     }
 
     public string CalcularIdadeEm(DateOnly data)

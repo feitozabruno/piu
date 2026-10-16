@@ -12,6 +12,8 @@ public sealed class CadastrarLoteTests(CustomWebApplicationFactory factory) : Ap
     [Fact]
     public async Task CadastrarLote_ComDadosValidos_DeveRetornarCreated()
     {
+        await AutenticarAsync();
+
         var request = new CadastrarLoteRequest(
             Nome: "DRD01-010",
             DataNascimento: "2026-03-14"
@@ -33,6 +35,8 @@ public sealed class CadastrarLoteTests(CustomWebApplicationFactory factory) : Ap
     [Fact]
     public async Task CadastrarLote_ComNomeDuplicado_DeveRetornarConflict()
     {
+        await AutenticarAsync();
+
         var request = new CadastrarLoteRequest(
             Nome: "DRD01-010",
             DataNascimento: "2026-03-14"
@@ -61,6 +65,8 @@ public sealed class CadastrarLoteTests(CustomWebApplicationFactory factory) : Ap
     [Fact]
     public async Task CadastrarLote_SemNome_DeveRetornarBadRequest()
     {
+        await AutenticarAsync();
+
         var request = new CadastrarLoteRequest(
             Nome: "",
             DataNascimento: "2026-03-14"
@@ -84,6 +90,8 @@ public sealed class CadastrarLoteTests(CustomWebApplicationFactory factory) : Ap
     [Fact]
     public async Task CadastrarLote_ComNomeCurto_DeveRetornarBadRequest()
     {
+        await AutenticarAsync();
+
         var request = new CadastrarLoteRequest(
             Nome: "DR",
             DataNascimento: "2026-03-14"
@@ -107,6 +115,8 @@ public sealed class CadastrarLoteTests(CustomWebApplicationFactory factory) : Ap
     [Fact]
     public async Task CadastrarLote_ComNomeMuitoGrande_DeveRetornarBadRequest()
     {
+        await AutenticarAsync();
+
         var request = new CadastrarLoteRequest(
             Nome: "DRD01-010-NOME-DE-LOTE-MUITO-GRANDE",
             DataNascimento: "2026-03-14"
@@ -130,6 +140,8 @@ public sealed class CadastrarLoteTests(CustomWebApplicationFactory factory) : Ap
     [Fact]
     public async Task CadastrarLote_SemDataNascimento_DeveRetornarBadRequest()
     {
+        await AutenticarAsync();
+
         var request = new CadastrarLoteRequest(
             Nome: "DRD01-010",
             DataNascimento: null
@@ -153,6 +165,8 @@ public sealed class CadastrarLoteTests(CustomWebApplicationFactory factory) : Ap
     [Fact]
     public async Task CadastrarLote_ComDataNascimentoInvalida_DeveRetornarBadRequest()
     {
+        await AutenticarAsync();
+
         var request = new CadastrarLoteRequest(
             Nome: "DRD01-010",
             DataNascimento: "14/03/2026"
@@ -175,6 +189,8 @@ public sealed class CadastrarLoteTests(CustomWebApplicationFactory factory) : Ap
     [Fact]
     public async Task CadastrarLote_ComDataNascimentoFutura_DeveRetornarBadRequest()
     {
+        await AutenticarAsync();
+
         var request = new CadastrarLoteRequest(
             Nome: "DRD01-010",
             DataNascimento: "3099-03-14"
@@ -192,5 +208,11 @@ public sealed class CadastrarLoteTests(CustomWebApplicationFactory factory) : Ap
         Assert.Equal(LoteErros.DataNascimentoInvalida.Code, erro.Code);
         Assert.Equal(LoteErros.DataNascimentoInvalida.Message, erro.Detail);
         Assert.Equal(HttpStatusCode.BadRequest, (HttpStatusCode)erro.Status);
+    }
+
+    private async Task AutenticarAsync()
+    {
+        var usuario = await Auth.CadastrarUsuarioLogadoAsync();
+        ApiClient.DefaultRequestHeaders.Add("Cookie", usuario.Token);
     }
 }

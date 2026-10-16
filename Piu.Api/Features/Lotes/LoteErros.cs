@@ -21,4 +21,7 @@ public static class LoteErros
 
     public static readonly DomainError DataReferenciaInvalida =
         new("DATA_REFERENCIA_INVALIDA", "A data de referência é inválida.");
+
+    public static readonly DomainError IncubatorioObrigatorio =
+        new("INCUBATORIO_LOTE_OBRIGATORIO", "O incubatório do lote é obrigatório.");
 }

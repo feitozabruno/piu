@@ -11,6 +11,9 @@ public static class CadastrarLoteErros
     public static readonly ApplicationError ErroNomeLoteEmUso =
         new("NOME_LOTE_EM_USO", "Este nome de lote já está em uso.", StatusCodes.Status409Conflict);
 
+    public static readonly ApplicationError UsuarioNaoAutenticado =
+        new("USUARIO_NAO_AUTENTICADO", "O usuário autenticado não foi encontrado.", StatusCodes.Status401Unauthorized);
+
     public const string DataNascimentoObrigatoria = "A data de nascimento do lote é obrigatória.";
     public const string DataNascimentoInvalida = "A data de nascimento é inválida.";
 

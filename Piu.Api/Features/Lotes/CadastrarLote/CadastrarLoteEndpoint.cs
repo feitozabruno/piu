@@ -1,17 +1,21 @@
+using System.Security.Claims;
+
 namespace Piu.Api.Features.Lotes.CadastrarLote;
 
 public static class CadastrarLoteEndpoint
 {
     public static void Map(IEndpointRouteBuilder app)
     {
-        app.MapPost("/", CriarAsync);
+        app.MapPost("/", CriarAsync)
+            .RequireAuthorization();
     }
 
     private static async Task<IResult> CriarAsync(
         CadastrarLoteRequest request,
+        ClaimsPrincipal usuarioAutenticado,
         CadastrarLoteHandler handler)
     {
-        var novoLote = await handler.HandleAsync(request);
+        var novoLote = await handler.HandleAsync(request, usuarioAutenticado);
 
         var response = new CadastrarLoteResponse(
             Id: novoLote.Id,

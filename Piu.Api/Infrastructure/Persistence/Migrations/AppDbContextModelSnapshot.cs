@@ -279,6 +279,10 @@ namespace Piu.Api.Data.Migrations
                     b.Property<DateOnly>("DataNascimento")
                         .HasColumnType("date");
 
+                    b.Property<string>("IncubatorioIdentificador")
+                        .IsRequired()
+                        .HasColumnType("citext");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -286,9 +290,9 @@ namespace Piu.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Nome")
+                    b.HasIndex("IncubatorioIdentificador", "Nome")
                         .IsUnique()
-                        .HasDatabaseName("IX_Lotes_Nome");
+                        .HasDatabaseName("IX_Lotes_IncubatorioIdentificador_Nome");
 
                     b.ToTable("Lotes", (string)null);
                 });
@@ -352,6 +356,18 @@ namespace Piu.Api.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_Usuarios_Incubatorios_IncubatorioIdentificador");
+                });
+
+            modelBuilder.Entity("Piu.Api.Features.Lotes.Lote", b =>
+                {
+                    b.HasOne("Piu.Api.Features.Incubatorios.Incubatorio", "Incubatorio")
+                        .WithMany()
+                        .HasForeignKey("IncubatorioIdentificador")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_Lotes_Incubatorios_IncubatorioIdentificador");
+
+                    b.Navigation("Incubatorio");
                 });
 #pragma warning restore 612, 618
         }
