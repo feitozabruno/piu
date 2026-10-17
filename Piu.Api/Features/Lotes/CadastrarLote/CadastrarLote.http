@@ -1,10 +1,12 @@
 @baseUrl = http://localhost:5000
+@cookie = CfDJ8Lwv06s8QopBo5JWMm9RRuYOmen00oaHQ6BFgOvgf183ozBIaK06780l62iHEb0RidCweQaHUbFhDe980b3PVEJtNWu5ugAjjshWBZI98jQXTuH5wyxT2_rn7CAYS0hCNUGsvIHZqhiR37mdKuWZJVoPNAz3Ly7zj2bVC2FBrx9XqaOXjs1ytaKGOLkv4psTkY9RaCFz7OurJFwbAAf3A0xnL5x0ZGNbdJi3D44qUlomLN9LwW0hN8UuxqqRppeHsUW5DNL7kA9h_7hvjDqcg18fzj_V2l5KvkIhZud-KzyHTR5Olf-7G4b_x_RRFT_m_JdpYb9hCABckueUM_P-KtePrrINNJi1o9bLknluhn8puoqGXH17Ch4hJIVk8aQE3xtRoXc7THc1sTcLihq4g2hOnT2lXsMLA_gWyidZ-lFtEJrHUMx1sCkuMTsL6RTNVbBRVqPm6RV-NcSYliU2pcLiWVXt0j5OvF7Vr2YsvoKd2oSjyEgisVFB9-mCeWH3dTuy4UH-4EYh4PRmRnDTbGPAoUAZcNH-rUl3Vm5UHoD7uR8vIIGLaF4cDImVBO7DwwHITxrNCtxB-mXA-0gkJTw
 
 ### Cadastrar Lote
 POST {{baseUrl}}/api/v1/lotes/
 Content-Type: application/json
+Cookie: piu.session={{cookie}}
 
 {
-  "nome": "DRD02-010",
+  "nome": "DRD01-010",
   "dataNascimento": "2026-03-14"
 }

@@ -4,6 +4,7 @@ using Piu.Api.Features.Auth;
 using Piu.Api.Features.Incubatorios;
 using Piu.Api.Infrastructure;
 using Piu.Api.Features.Lotes;
+using Piu.Api.Features.Ovos;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,7 @@ app.UseAuthorization();
 app.MapAuth();
 app.MapIncubatorios();
 app.MapLotes();
+app.MapOvos();
 app.MapGet("/", () => "Hello, World!");
 
 app.Run();

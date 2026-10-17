@@ -297,6 +297,65 @@ namespace Piu.Api.Data.Migrations
                     b.ToTable("Lotes", (string)null);
                 });
 
+            modelBuilder.Entity("Piu.Api.Features.Ovos.Ovo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("CamaIncubavel")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateOnly>("DataPostura")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime>("HoraRecebimento")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Idade")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<Guid>("LoteId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Motorista")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("NinhoIncubavel")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Observacao")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PlacaCaminhao")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("TemperaturaBau")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("numeric(10,2)");
+
+                    b.Property<decimal>("TemperaturaRecebimento")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("numeric(10,2)");
+
+                    b.Property<int>("TotalRecebido")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LoteId");
+
+                    b.ToTable("Ovos", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -368,6 +427,18 @@ namespace Piu.Api.Data.Migrations
                         .HasConstraintName("FK_Lotes_Incubatorios_IncubatorioIdentificador");
 
                     b.Navigation("Incubatorio");
+                });
+
+            modelBuilder.Entity("Piu.Api.Features.Ovos.Ovo", b =>
+                {
+                    b.HasOne("Piu.Api.Features.Lotes.Lote", "Lote")
+                        .WithMany()
+                        .HasForeignKey("LoteId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_Ovos_Lotes_LoteId");
+
+                    b.Navigation("Lote");
                 });
 #pragma warning restore 612, 618
         }
