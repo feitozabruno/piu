@@ -41,7 +41,7 @@ export function useReceberLote() {
           ? `${formData.horaRecebimento}:00`
           : formData.horaRecebimento;
 
-      await apiFetch("/ovos/", {
+      await apiFetch("/ovos", {
         method: "POST",
         body: JSON.stringify({ ...formData, horaRecebimento }),
       });
