@@ -13,6 +13,7 @@ builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddAuth();
 builder.Services.AddHandlers();
 builder.Services.AddValidation();
+builder.Services.AddWebCors();
 
 var app = builder.Build();
 
@@ -20,6 +21,7 @@ app.UseExceptionHandler();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseCors("Web");
 
 app.MapAuth();
 app.MapIncubatorios();
