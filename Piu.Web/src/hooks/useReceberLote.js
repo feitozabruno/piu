@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const BASE_URL = "https://piu-vhfi.onrender.com/api/v1";
+const BASE_URL = "/api/v1";
 
 export async function apiFetch(endpoint, options = {}) {
   const response = await fetch(`${BASE_URL}${endpoint}`, {
