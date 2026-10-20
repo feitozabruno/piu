@@ -44,7 +44,7 @@ public sealed class FazerLoginEndpointTests(CustomWebApplicationFactory factory)
 
         Assert.Contains(
             cookies,
-            cookie => cookie.Contains("samesite=lax", StringComparison.OrdinalIgnoreCase));
+            cookie => cookie.Contains("samesite=none", StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]
@@ -83,7 +83,7 @@ public sealed class FazerLoginEndpointTests(CustomWebApplicationFactory factory)
 
         Assert.Contains(
             cookies,
-            cookie => cookie.Contains("samesite=lax", StringComparison.OrdinalIgnoreCase));
+            cookie => cookie.Contains("samesite=none", StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]

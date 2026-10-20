@@ -36,7 +36,7 @@ public static class AuthExtensions
             options.Cookie.Name = "piu.session";
             options.Cookie.HttpOnly = true;
             options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-            options.Cookie.SameSite = SameSiteMode.Lax;
+            options.Cookie.SameSite = SameSiteMode.None;
 
             options.ExpireTimeSpan = TimeSpan.FromDays(40);
             options.SlidingExpiration = true;

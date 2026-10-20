@@ -19,9 +19,9 @@ var app = builder.Build();
 
 app.UseExceptionHandler();
 
+app.UseCors("Web");
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors("Web");
 
 app.MapAuth();
 app.MapIncubatorios();
