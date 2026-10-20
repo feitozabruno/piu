@@ -1,30 +1,10 @@
-import { useEffect, useState } from "react";
-import {
-  Eye,
-  EyeOff,
-  LockKeyhole,
-  UserRound,
-  Wifi,
-  WifiOff,
-} from "lucide-react";
+import { Eye, EyeOff, LockKeyhole, UserRound } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useLogin } from "@/hooks/useLogin";
 
 export function TelaDeLogin() {
   const navigate = useNavigate();
-  const [isOnline, setIsOnline] = useState(true);
-
-  useEffect(() => {
-    const updateConnection = () => setIsOnline(window.navigator.onLine);
-    updateConnection();
-    window.addEventListener("online", updateConnection);
-    window.addEventListener("offline", updateConnection);
-    return () => {
-      window.removeEventListener("online", updateConnection);
-      window.removeEventListener("offline", updateConnection);
-    };
-  }, []);
 
   const {
     formData,
@@ -47,15 +27,6 @@ export function TelaDeLogin() {
   return (
     <main className="min-h-screen bg-[#f4f6f8] text-zinc-950">
       <div className="mx-auto flex min-h-screen w-full max-w-140 flex-col bg-white shadow-[0_0_36px_rgba(0,0,0,0.08)] sm:min-h-215 sm:my-8 sm:rounded-[28px] sm:border-4 sm:border-zinc-950 sm:overflow-hidden">
-        <header className="flex items-center justify-between gap-3 border-b-4 border-zinc-950 bg-white px-4 py-5 sm:px-9 sm:py-7">
-          <h1 className="text-5xl font-black leading-none tracking-[-0.09em] sm:text-6xl">
-            Piu
-          </h1>
-          <span className="rounded-lg border-4 border-zinc-950 px-2 py-2 text-[0.65rem] font-black uppercase leading-tight sm:px-3 sm:text-lg">
-            Sistema operacional
-          </span>
-        </header>
-
         <section className="flex flex-1 flex-col px-4 py-8 sm:px-9 sm:py-16">
           <div>
             <h2 className="text-3xl font-black uppercase leading-[0.95] tracking-tight sm:text-5xl">
@@ -154,24 +125,6 @@ export function TelaDeLogin() {
               {isLoading ? "Entrando..." : "Acessar"}
             </Button>
           </form>
-
-          <div className="mt-auto flex flex-col items-center gap-2 pt-12 text-center sm:pt-16">
-            <p className="flex items-center gap-2 text-base font-semibold sm:text-lg">
-              {isOnline ? (
-                <Wifi aria-hidden="true" className="size-6 text-green-600" />
-              ) : (
-                <WifiOff aria-hidden="true" className="size-6 text-amber-600" />
-              )}
-              <span>
-                {isOnline
-                  ? "Sincronização Offline Ativa"
-                  : "Sem conexão — modo offline"}
-              </span>
-            </p>
-            <span className="rounded-md border-2 border-zinc-300 px-4 py-1 text-sm font-bold uppercase text-zinc-800">
-              Pronto para uso offline
-            </span>
-          </div>
         </section>
       </div>
     </main>
