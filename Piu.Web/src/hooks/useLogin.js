@@ -58,8 +58,10 @@ export function useLogin() {
           senha: formData.senha,
         }),
       });
+      return true;
     } catch (err) {
       setError(err.message);
+      return false;
     } finally {
       setIsLoading(false);
     }

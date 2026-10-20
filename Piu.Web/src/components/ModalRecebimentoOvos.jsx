@@ -58,8 +58,11 @@ const defaultValues = {
 
 export function ModalRecebimentoOvos({ open, onOpenChange }) {
   const [submitted, setSubmitted] = useState(false);
-  const { handleSubmit: submitReceipt, isSubmitting: isSaving, apiError } =
-    useReceberLote();
+  const {
+    handleSubmit: submitReceipt,
+    isSubmitting: isSaving,
+    apiError,
+  } = useReceberLote();
   const {
     register,
     handleSubmit,
@@ -88,7 +91,7 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto rounded-2xl border-4 border-zinc-950 bg-white p-6 shadow-[0_7px_0_0_#18181b] sm:max-w-xl sm:p-8">
+      <DialogContent className="max-h-[90vh] overflow-y-auto rounded-2xl border-4 border-zinc-950 bg-white p-4 shadow-[0_7px_0_0_#18181b] sm:max-w-2xl sm:p-8">
         {submitted ? (
           <div aria-live="polite" className="flex flex-col items-start gap-3">
             <CheckCircle2
@@ -130,161 +133,161 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
               </DialogDescription>
             </DialogHeader>
 
-            <FormField
-              id="lote"
-              label="Lote"
-              error={errors.lote?.message}
-            >
-              <input
-                id="lote"
-                type="text"
-                {...register("lote")}
-                aria-invalid={Boolean(errors.lote)}
-                className={fieldClass(Boolean(errors.lote))}
-                placeholder="Ex.: DRD03-012"
-              />
-            </FormField>
+            <div className="grid gap-5 sm:grid-cols-2">
+              <FormField id="lote" label="Lote" error={errors.lote?.message}>
+                <input
+                  id="lote"
+                  type="text"
+                  {...register("lote")}
+                  aria-invalid={Boolean(errors.lote)}
+                  className={fieldClass(Boolean(errors.lote))}
+                  placeholder="Ex.: DRD03-012"
+                />
+              </FormField>
 
-            <FormField
-              id="dataPostura"
-              label="Data de postura"
-              error={errors.dataPostura?.message}
-            >
-              <input
+              <FormField
                 id="dataPostura"
-                type="date"
-                {...register("dataPostura")}
-                aria-invalid={Boolean(errors.dataPostura)}
-                className={fieldClass(Boolean(errors.dataPostura))}
-              />
-            </FormField>
+                label="Data de postura"
+                error={errors.dataPostura?.message}
+              >
+                <input
+                  id="dataPostura"
+                  type="date"
+                  {...register("dataPostura")}
+                  aria-invalid={Boolean(errors.dataPostura)}
+                  className={fieldClass(Boolean(errors.dataPostura))}
+                />
+              </FormField>
 
-            <FormField
-              id="ninhoIncubavel"
-              label="Quantidade Ovos Ninho"
-              error={errors.ninhoIncubavel?.message}
-            >
-              <input
+              <FormField
                 id="ninhoIncubavel"
-                type="number"
-                min="0"
-                step="1"
-                inputMode="numeric"
-                {...register("ninhoIncubavel")}
-                aria-invalid={Boolean(errors.ninhoIncubavel)}
-                className={fieldClass(Boolean(errors.ninhoIncubavel))}
-                placeholder="Ex.: 1200"
-              />
-            </FormField>
+                label="Quantidade Ovos Ninho"
+                error={errors.ninhoIncubavel?.message}
+              >
+                <input
+                  id="ninhoIncubavel"
+                  type="number"
+                  min="0"
+                  step="1"
+                  inputMode="numeric"
+                  {...register("ninhoIncubavel")}
+                  aria-invalid={Boolean(errors.ninhoIncubavel)}
+                  className={fieldClass(Boolean(errors.ninhoIncubavel))}
+                  placeholder="Ex.: 1200"
+                />
+              </FormField>
 
-            <FormField
-              id="camaIncubavel"
-              label="Quantidade Ovos Cama"
-              error={errors.camaIncubavel?.message}
-            >
-              <input
+              <FormField
                 id="camaIncubavel"
-                type="number"
-                min="0"
-                step="1"
-                inputMode="numeric"
-                {...register("camaIncubavel")}
-                aria-invalid={Boolean(errors.camaIncubavel)}
-                className={fieldClass(Boolean(errors.camaIncubavel))}
-                placeholder="Ex.: 1200"
-              />
-            </FormField>
+                label="Quantidade Ovos Cama"
+                error={errors.camaIncubavel?.message}
+              >
+                <input
+                  id="camaIncubavel"
+                  type="number"
+                  min="0"
+                  step="1"
+                  inputMode="numeric"
+                  {...register("camaIncubavel")}
+                  aria-invalid={Boolean(errors.camaIncubavel)}
+                  className={fieldClass(Boolean(errors.camaIncubavel))}
+                  placeholder="Ex.: 1200"
+                />
+              </FormField>
 
-            <FormField
-              id="temperaturaOvo"
-              label="Temperatura Ovo"
-              error={errors.temperaturaOvo?.message}
-            >
-              <input
+              <FormField
                 id="temperaturaOvo"
-                type="number"
-                step="0.1"
-                {...register("temperaturaOvo")}
-                aria-invalid={Boolean(errors.temperaturaOvo)}
-                className={fieldClass(Boolean(errors.temperaturaOvo))}
-                placeholder="Ex.: 18.2"
-              />
-            </FormField>
+                label="Temperatura Ovo"
+                error={errors.temperaturaOvo?.message}
+              >
+                <input
+                  id="temperaturaOvo"
+                  type="number"
+                  step="0.1"
+                  {...register("temperaturaOvo")}
+                  aria-invalid={Boolean(errors.temperaturaOvo)}
+                  className={fieldClass(Boolean(errors.temperaturaOvo))}
+                  placeholder="Ex.: 18.2"
+                />
+              </FormField>
 
-            <FormField
-              id="placaCaminhao"
-              label="Placa Caminhão"
-              error={errors.placaCaminhao?.message}
-            >
-              <input
+              <FormField
                 id="placaCaminhao"
-                type="text"
-                {...register("placaCaminhao")}
-                aria-invalid={Boolean(errors.placaCaminhao)}
-                className={fieldClass(Boolean(errors.placaCaminhao))}
-                placeholder="Ex.: REW0H06"
-              />
-            </FormField>
+                label="Placa Caminhão"
+                error={errors.placaCaminhao?.message}
+              >
+                <input
+                  id="placaCaminhao"
+                  type="text"
+                  {...register("placaCaminhao")}
+                  aria-invalid={Boolean(errors.placaCaminhao)}
+                  className={fieldClass(Boolean(errors.placaCaminhao))}
+                  placeholder="Ex.: REW0H06"
+                />
+              </FormField>
 
-            <FormField
-              id="temperaturaBau"
-              label="Temperatura Baú"
-              error={errors.temperaturaBau?.message}
-            >
-              <input
+              <FormField
                 id="temperaturaBau"
-                type="number"
-                step="0.1"
-                {...register("temperaturaBau")}
-                aria-invalid={Boolean(errors.temperaturaBau)}
-                className={fieldClass(Boolean(errors.temperaturaBau))}
-                placeholder="Ex.: 19.0"
-              />
-            </FormField>
+                label="Temperatura Baú"
+                error={errors.temperaturaBau?.message}
+              >
+                <input
+                  id="temperaturaBau"
+                  type="number"
+                  step="0.1"
+                  {...register("temperaturaBau")}
+                  aria-invalid={Boolean(errors.temperaturaBau)}
+                  className={fieldClass(Boolean(errors.temperaturaBau))}
+                  placeholder="Ex.: 19.0"
+                />
+              </FormField>
 
-            <FormField
-              id="horaRecebimento"
-              label="Hora Recebimento"
-              error={errors.horaRecebimento?.message}
-            >
-              <input
+              <FormField
                 id="horaRecebimento"
-                type="datetime-local"
-                {...register("horaRecebimento")}
-                aria-invalid={Boolean(errors.horaRecebimento)}
-                className={fieldClass(Boolean(errors.horaRecebimento))}
-              />
-            </FormField>
+                label="Hora Recebimento"
+                error={errors.horaRecebimento?.message}
+              >
+                <input
+                  id="horaRecebimento"
+                  type="datetime-local"
+                  {...register("horaRecebimento")}
+                  aria-invalid={Boolean(errors.horaRecebimento)}
+                  className={fieldClass(Boolean(errors.horaRecebimento))}
+                />
+              </FormField>
 
-            <FormField
-              id="motorista"
-              label="Motorista"
-              error={errors.motorista?.message}
-            >
-              <input
+              <FormField
                 id="motorista"
-                type="text"
-                {...register("motorista")}
-                aria-invalid={Boolean(errors.motorista)}
-                className={fieldClass(Boolean(errors.motorista))}
-                placeholder="Ex.: VLADEMIR"
-              />
-            </FormField>
+                label="Motorista"
+                error={errors.motorista?.message}
+              >
+                <input
+                  id="motorista"
+                  type="text"
+                  {...register("motorista")}
+                  aria-invalid={Boolean(errors.motorista)}
+                  className={fieldClass(Boolean(errors.motorista))}
+                  placeholder="Ex.: VLADEMIR"
+                />
+              </FormField>
 
-            <FormField
-              id="observacao"
-              label="Observação"
-              error={errors.observacao?.message}
-            >
-              <input
-                id="observacao"
-                type="text"
-                {...register("observacao")}
-                aria-invalid={Boolean(errors.observacao)}
-                className={fieldClass(Boolean(errors.observacao))}
-                placeholder="Ex.: Nenhuma anomalia."
-              />
-            </FormField>
+              <div className="sm:col-span-2">
+                <FormField
+                  id="observacao"
+                  label="Observação"
+                  error={errors.observacao?.message}
+                >
+                  <input
+                    id="observacao"
+                    type="text"
+                    {...register("observacao")}
+                    aria-invalid={Boolean(errors.observacao)}
+                    className={fieldClass(Boolean(errors.observacao))}
+                    placeholder="Ex.: Nenhuma anomalia."
+                  />
+                </FormField>
+              </div>
+            </div>
 
             {apiError && (
               <p className="text-sm font-bold text-red-700" role="alert">
