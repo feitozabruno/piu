@@ -8,7 +8,7 @@ public static class CorsExtensions
         {
             options.AddPolicy("Web", policy =>
             {
-                policy.WithOrigins("http://localhost:5173")
+                policy.WithOrigins("http://localhost:5173", "https://piu-vhfi.onrender.com")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
