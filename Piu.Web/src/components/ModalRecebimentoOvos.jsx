@@ -4,6 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2, ClipboardList } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useReceberLote } from "@/hooks/useReceberLote";
 import {
   Dialog,
   DialogContent,
@@ -14,29 +15,56 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 
-const receiptSchema = z.object({
-  originFarm: z.string().min(1, "Selecione a granja de origem."),
-  layingDate: z.string().min(1, "Informe a data de postura."),
-  eggQuantity: z.coerce
-    .number({ message: "Informe a quantidade de ovos." })
-    .positive("A quantidade deve ser maior que zero."),
-  batchInvoice: z.string().trim().min(1, "Informe o lote ou a NF."),
-});
+const receiptSchema = z
+  .object({
+    lote: z.string().trim().min(1, "Informe o lote."),
+    dataPostura: z.string().min(1, "Informe a data de postura."),
+    ninhoIncubavel: z.coerce
+      .number({ message: "Informe a quantidade de ovos." })
+      .int("Informe um número inteiro.")
+      .min(0, "A quantidade não pode ser negativa."),
+    camaIncubavel: z.coerce
+      .number({ message: "Informe a quantidade de ovos." })
+      .int("Informe um número inteiro.")
+      .min(0, "A quantidade não pode ser negativa."),
+    temperaturaOvo: z.coerce.number({ message: "Informe a temperatura." }),
+    temperaturaBau: z.coerce.number({ message: "Informe a temperatura." }),
+    placaCaminhao: z.string().trim().min(1, "Informe a placa do caminhão."),
+    motorista: z.string().trim().min(1, "Informe o motorista."),
+    horaRecebimento: z.string().min(1, "Informe a hora de recebimento."),
+    observacao: z.string(),
+  })
+  .refine(
+    ({ ninhoIncubavel, camaIncubavel }) =>
+      ninhoIncubavel > 0 || camaIncubavel > 0,
+    {
+      message: "Informe uma quantidade de ovos maior que zero.",
+      path: ["ninhoIncubavel"],
+    },
+  );
 
 const defaultValues = {
-  originFarm: "",
-  layingDate: "",
-  eggQuantity: "",
-  batchInvoice: "",
+  lote: "",
+  dataPostura: "",
+  ninhoIncubavel: "",
+  camaIncubavel: "",
+  temperaturaOvo: "",
+  temperaturaBau: "",
+  placaCaminhao: "",
+  motorista: "",
+  horaRecebimento: "",
+  observacao: "",
 };
 
 export function ModalRecebimentoOvos({ open, onOpenChange }) {
   const [submitted, setSubmitted] = useState(false);
+  const { handleSubmit: submitReceipt, isSubmitting: isSaving, apiError } =
+    useReceberLote();
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting: isFormSubmitting },
   } = useForm({
     resolver: zodResolver(receiptSchema),
     mode: "onChange",
@@ -50,6 +78,12 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
       setSubmitted(false);
     }
     onOpenChange(nextOpen);
+  }
+
+  async function handleReceiptSubmit(data) {
+    if (await submitReceipt(data)) {
+      setSubmitted(true);
+    }
   }
 
   return (
@@ -80,7 +114,7 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
           </div>
         ) : (
           <form
-            onSubmit={handleSubmit(() => setSubmitted(true))}
+            onSubmit={handleSubmit(handleReceiptSubmit)}
             noValidate
             className="flex flex-col gap-6"
           >
@@ -97,66 +131,66 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
             </DialogHeader>
 
             <FormField
-              id="batchInvoice"
+              id="lote"
               label="Lote"
-              error={errors.batchInvoice?.message}
+              error={errors.lote?.message}
             >
               <input
-                id="batchInvoice"
+                id="lote"
                 type="text"
-                {...register("batchInvoice")}
-                aria-invalid={Boolean(errors.batchInvoice)}
-                className={fieldClass(Boolean(errors.batchInvoice))}
+                {...register("lote")}
+                aria-invalid={Boolean(errors.lote)}
+                className={fieldClass(Boolean(errors.lote))}
                 placeholder="Ex.: DRD03-012"
               />
             </FormField>
 
             <FormField
-              id="layingDate"
+              id="dataPostura"
               label="Data de postura"
-              error={errors.layingDate?.message}
+              error={errors.dataPostura?.message}
             >
               <input
-                id="layingDate"
+                id="dataPostura"
                 type="date"
-                {...register("layingDate")}
-                aria-invalid={Boolean(errors.layingDate)}
-                className={fieldClass(Boolean(errors.layingDate))}
+                {...register("dataPostura")}
+                aria-invalid={Boolean(errors.dataPostura)}
+                className={fieldClass(Boolean(errors.dataPostura))}
               />
             </FormField>
 
             <FormField
-              id="eggQuantity"
+              id="ninhoIncubavel"
               label="Quantidade Ovos Ninho"
-              error={errors.eggQuantity?.message}
+              error={errors.ninhoIncubavel?.message}
             >
               <input
-                id="eggQuantity"
+                id="ninhoIncubavel"
                 type="number"
-                min="1"
+                min="0"
                 step="1"
                 inputMode="numeric"
-                {...register("eggQuantity")}
-                aria-invalid={Boolean(errors.eggQuantity)}
-                className={fieldClass(Boolean(errors.eggQuantity))}
+                {...register("ninhoIncubavel")}
+                aria-invalid={Boolean(errors.ninhoIncubavel)}
+                className={fieldClass(Boolean(errors.ninhoIncubavel))}
                 placeholder="Ex.: 1200"
               />
             </FormField>
 
             <FormField
-              id="ovosCama"
+              id="camaIncubavel"
               label="Quantidade Ovos Cama"
-              error={errors.eggQuantity?.message}
+              error={errors.camaIncubavel?.message}
             >
               <input
-                id="eggQuantity"
+                id="camaIncubavel"
                 type="number"
-                min="1"
+                min="0"
                 step="1"
                 inputMode="numeric"
-                {...register("eggQuantity")}
-                aria-invalid={Boolean(errors.eggQuantity)}
-                className={fieldClass(Boolean(errors.eggQuantity))}
+                {...register("camaIncubavel")}
+                aria-invalid={Boolean(errors.camaIncubavel)}
+                className={fieldClass(Boolean(errors.camaIncubavel))}
                 placeholder="Ex.: 1200"
               />
             </FormField>
@@ -164,29 +198,30 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
             <FormField
               id="temperaturaOvo"
               label="Temperatura Ovo"
-              error={errors.batchInvoice?.message}
+              error={errors.temperaturaOvo?.message}
             >
               <input
-                id="placa"
-                type="text"
+                id="temperaturaOvo"
+                type="number"
+                step="0.1"
                 {...register("temperaturaOvo")}
-                aria-invalid={Boolean(errors.batchInvoice)}
-                className={fieldClass(Boolean(errors.batchInvoice))}
+                aria-invalid={Boolean(errors.temperaturaOvo)}
+                className={fieldClass(Boolean(errors.temperaturaOvo))}
                 placeholder="Ex.: 18.2"
               />
             </FormField>
 
             <FormField
-              id="placa"
+              id="placaCaminhao"
               label="Placa Caminhão"
-              error={errors.batchInvoice?.message}
+              error={errors.placaCaminhao?.message}
             >
               <input
-                id="placa"
+                id="placaCaminhao"
                 type="text"
-                {...register("placa")}
-                aria-invalid={Boolean(errors.batchInvoice)}
-                className={fieldClass(Boolean(errors.batchInvoice))}
+                {...register("placaCaminhao")}
+                aria-invalid={Boolean(errors.placaCaminhao)}
+                className={fieldClass(Boolean(errors.placaCaminhao))}
                 placeholder="Ex.: REW0H06"
               />
             </FormField>
@@ -194,14 +229,15 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
             <FormField
               id="temperaturaBau"
               label="Temperatura Baú"
-              error={errors.batchInvoice?.message}
+              error={errors.temperaturaBau?.message}
             >
               <input
-                id="placa"
-                type="text"
+                id="temperaturaBau"
+                type="number"
+                step="0.1"
                 {...register("temperaturaBau")}
-                aria-invalid={Boolean(errors.batchInvoice)}
-                className={fieldClass(Boolean(errors.batchInvoice))}
+                aria-invalid={Boolean(errors.temperaturaBau)}
+                className={fieldClass(Boolean(errors.temperaturaBau))}
                 placeholder="Ex.: 19.0"
               />
             </FormField>
@@ -209,29 +245,28 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
             <FormField
               id="horaRecebimento"
               label="Hora Recebimento"
-              error={errors.batchInvoice?.message}
+              error={errors.horaRecebimento?.message}
             >
               <input
                 id="horaRecebimento"
-                type="text"
+                type="datetime-local"
                 {...register("horaRecebimento")}
-                aria-invalid={Boolean(errors.batchInvoice)}
-                className={fieldClass(Boolean(errors.batchInvoice))}
-                placeholder="Ex.: 09:30"
+                aria-invalid={Boolean(errors.horaRecebimento)}
+                className={fieldClass(Boolean(errors.horaRecebimento))}
               />
             </FormField>
 
             <FormField
               id="motorista"
               label="Motorista"
-              error={errors.batchInvoice?.message}
+              error={errors.motorista?.message}
             >
               <input
-                id="placa"
+                id="motorista"
                 type="text"
                 {...register("motorista")}
-                aria-invalid={Boolean(errors.batchInvoice)}
-                className={fieldClass(Boolean(errors.batchInvoice))}
+                aria-invalid={Boolean(errors.motorista)}
+                className={fieldClass(Boolean(errors.motorista))}
                 placeholder="Ex.: VLADEMIR"
               />
             </FormField>
@@ -239,22 +274,28 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
             <FormField
               id="observacao"
               label="Observação"
-              error={errors.batchInvoice?.message}
+              error={errors.observacao?.message}
             >
               <input
                 id="observacao"
                 type="text"
                 {...register("observacao")}
-                aria-invalid={Boolean(errors.batchInvoice)}
-                className={fieldClass(Boolean(errors.batchInvoice))}
+                aria-invalid={Boolean(errors.observacao)}
+                className={fieldClass(Boolean(errors.observacao))}
                 placeholder="Ex.: Nenhuma anomalia."
               />
             </FormField>
 
+            {apiError && (
+              <p className="text-sm font-bold text-red-700" role="alert">
+                {apiError}
+              </p>
+            )}
+
             <DialogFooter>
               <Button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isFormSubmitting || isSaving}
                 className="h-14 w-full rounded-xl border-2 border-zinc-950 bg-[#f6c945] text-lg font-black uppercase text-zinc-950 shadow-[0_4px_0_0_#18181b] hover:bg-[#ffd95f]"
               >
                 Registrar recebimento
