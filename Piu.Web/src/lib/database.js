@@ -7,6 +7,12 @@ db.version(1).stores({
   lotes: "id, nome",
 });
 
+db.version(2).stores({
+  recebimentos: "clientId, status, criadoEm, lote",
+  lotes: "id, nome",
+  configuracao: "chave",
+});
+
 export async function enfileirarRecebimento(payload) {
   const clientId = crypto.randomUUID();
 
@@ -21,4 +27,11 @@ export async function enfileirarRecebimento(payload) {
   });
 
   return clientId;
+}
+
+export async function registrarUltimaSincronizacao() {
+  await db.configuracao.put({
+    chave: "ultimaSincronizacao",
+    valor: new Date().toISOString(),
+  });
 }

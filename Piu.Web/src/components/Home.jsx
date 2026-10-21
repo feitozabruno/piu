@@ -1,7 +1,8 @@
-import { CloudOff, Egg } from "lucide-react";
+import { Cloud, CloudOff, Egg, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModalRecebimentoOvos } from "@/components/ModalRecebimentoOvos";
 import { useState } from "react";
+import { useSyncStatus } from "@/hooks/useSyncStatus";
 
 const workAreas = [
   {
@@ -16,6 +17,13 @@ const workAreas = [
 export function Home() {
   const [showModalRecebimentoOvos, setShowModalRecebimentoOvos] =
     useState(false);
+  const { online, pendentes, sincronizando, falhas, ultimaSincronizacao } =
+    useSyncStatus();
+
+  const fila = pendentes + sincronizando + falhas;
+  const SyncIcon = online ? Cloud : CloudOff;
+  const statusFila =
+    falhas > 0 ? "Atenção necessária" : online ? "Conectado" : "Offline";
 
   return (
     <main className="min-h-screen bg-[#f4f6f8] text-zinc-950">
@@ -82,21 +90,42 @@ export function Home() {
                 <p className="text-sm font-black uppercase tracking-[0.16em] text-zinc-500">
                   Fila de sincronização
                 </p>
-                <p className="mt-3 text-5xl font-black">00</p>
+                <p className="mt-3 text-5xl font-black">
+                  {String(fila).padStart(2, "0")}
+                </p>
                 <p className="mt-1 font-bold text-zinc-600">
-                  movimentações pendentes
+                  {falhas > 0
+                    ? `${falhas} movimentação(ões) com erro`
+                    : sincronizando > 0
+                      ? "sincronizando agora"
+                      : "movimentações pendentes"}
                 </p>
               </div>
-              <CloudOff aria-hidden="true" className="size-9 text-zinc-400" />
+              <SyncIcon
+                aria-hidden="true"
+                className={`size-9 ${online ? "text-emerald-600" : "text-zinc-400"}`}
+              />
             </div>
+            <p className="mt-4 text-sm font-black uppercase tracking-wide text-zinc-500">
+              {statusFila}
+            </p>
           </article>
           <article className="rounded-2xl border-2 border-zinc-950 bg-white p-4 sm:p-6">
             <p className="text-sm font-black uppercase tracking-[0.16em] text-zinc-500">
               Última sincronização
             </p>
-            <p className="mt-3 text-2xl font-black">Sincronizado agora</p>
+            <div className="mt-3 flex items-center gap-2">
+              {sincronizando > 0 && (
+                <RefreshCw className="size-5 animate-spin" aria-hidden="true" />
+              )}
+              <p className="text-2xl font-black">
+                {formatarUltimaSincronizacao(ultimaSincronizacao)}
+              </p>
+            </div>
             <p className="mt-1 font-bold text-zinc-600">
-              Seus dados estão protegidos no dispositivo
+              {online
+                ? "Dados locais sincronizados automaticamente"
+                : "Dados protegidos no dispositivo até a conexão voltar"}
             </p>
           </article>
         </section>
@@ -108,4 +137,13 @@ export function Home() {
       </div>
     </main>
   );
+}
+
+function formatarUltimaSincronizacao(valor) {
+  if (!valor) return "Ainda não sincronizado";
+
+  return `Sincronizado às ${new Intl.DateTimeFormat("pt-BR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date(valor))}`;
 }

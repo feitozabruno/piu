@@ -1,4 +1,4 @@
-import { db } from "./database";
+import { db, registrarUltimaSincronizacao } from "./database";
 import { apiFetch } from "./api";
 
 let sincronizacaoEmAndamento = false;
@@ -51,6 +51,7 @@ async function sincronizarRecebimento(recebimento) {
       sincronizadoEm: new Date().toISOString(),
       ultimoErro: null,
     });
+    await registrarUltimaSincronizacao();
   } catch (error) {
     const deveFalhar =
       error.status >= 400 && error.status < 500 && error.status !== 401;
