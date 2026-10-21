@@ -32,7 +32,9 @@ export async function apiFetch(endpoint, options = {}) {
     throw error;
   }
 
-  if (response.status === 204) return null;
+  const responseText = await response.text();
 
-  return response.json();
+  if (!responseText.trim()) return null;
+
+  return JSON.parse(responseText);
 }
