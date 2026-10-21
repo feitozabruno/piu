@@ -306,6 +306,9 @@ namespace Piu.Api.Data.Migrations
                     b.Property<int>("CamaIncubavel")
                         .HasColumnType("integer");
 
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTime>("CriadoEm")
                         .HasColumnType("timestamp with time zone");
 
@@ -350,6 +353,9 @@ namespace Piu.Api.Data.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId")
+                        .IsUnique();
 
                     b.HasIndex("LoteId");
 

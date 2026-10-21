@@ -1,10 +1,10 @@
-using Piu.Api.Infrastructure.Persistence;
-using Piu.Api.Middleware;
 using Piu.Api.Features.Auth;
 using Piu.Api.Features.Incubatorios;
-using Piu.Api.Infrastructure;
 using Piu.Api.Features.Lotes;
 using Piu.Api.Features.Ovos;
+using Piu.Api.Infrastructure;
+using Piu.Api.Infrastructure.Persistence;
+using Piu.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 

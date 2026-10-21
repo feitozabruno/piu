@@ -62,6 +62,7 @@ public sealed class OvoTests
 
     private static OvoRecebimentoDados CriarDados() => new()
     {
+        ClientId = Guid.NewGuid(),
         DataPostura = new DateOnly(2026, 10, 16),
         NinhoIncubavel = 30,
         CamaIncubavel = 3,

@@ -1,27 +1,5 @@
 import { useState } from "react";
-
-const BASE_URL = "/api/v1";
-
-export async function apiFetch(endpoint, options = {}) {
-  const response = await fetch(`${BASE_URL}${endpoint}`, {
-    ...options,
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    throw errorData ?? new Error("Erro na requisição");
-  }
-
-  if (response.status === 204) return null;
-
-  return response;
-  // return response.json();
-}
+import { apiFetch } from "@/lib/api";
 
 export function useLogin() {
   const [formData, setFormData] = useState({

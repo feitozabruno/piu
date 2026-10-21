@@ -1,11 +1,12 @@
-using Piu.Api.Features.Lotes;
 using Piu.Api.Domain;
+using Piu.Api.Features.Lotes;
 
 namespace Piu.Api.Features.Ovos;
 
 public sealed class Ovo
 {
     public Guid Id { get; private set; }
+    public Guid ClientId { get; private set; }
     public Lote Lote { get; private set; } = null!;
     public Guid LoteId { get; private set; }
     public DateOnly DataPostura { get; private set; }
@@ -26,7 +27,8 @@ public sealed class Ovo
 
     private Ovo(Lote lote, OvoRecebimentoDados dados)
     {
-        Id = Guid.NewGuid();
+        Id = dados.ClientId;
+        ClientId = dados.ClientId;
 
         Lote = lote;
         LoteId = lote.Id;

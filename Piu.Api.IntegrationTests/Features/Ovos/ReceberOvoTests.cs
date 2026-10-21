@@ -43,6 +43,24 @@ public sealed class ReceberOvoTests(CustomWebApplicationFactory factory)
         Assert.Equal(HttpStatusCode.NotFound, consulta.StatusCode);
     }
 
+    [Fact]
+    public async Task ReceberOvo_ComMesmoClientId_DeveRetornarORecebimentoExistente()
+    {
+        await AutenticarAsync();
+        await CriarLoteAsync();
+
+        var request = CriarRequest();
+        var primeiro = await ApiClient.PostAsJsonAsync("/api/v1/ovos", request);
+        var segundo = await ApiClient.PostAsJsonAsync("/api/v1/ovos", request);
+
+        var primeiroCriado = await primeiro.Content.ReadFromJsonAsync<ReceberOvoResponse>();
+        var segundoCriado = await segundo.Content.ReadFromJsonAsync<ReceberOvoResponse>();
+
+        Assert.Equal(HttpStatusCode.Created, primeiro.StatusCode);
+        Assert.Equal(HttpStatusCode.Created, segundo.StatusCode);
+        Assert.Equal(primeiroCriado?.Id, segundoCriado?.Id);
+    }
+
     private async Task AutenticarAsync()
     {
         var usuario = await Auth.CadastrarUsuarioLogadoAsync();
@@ -57,6 +75,7 @@ public sealed class ReceberOvoTests(CustomWebApplicationFactory factory)
     }
 
     private static ReceberOvoRequest CriarRequest() => new(
+        Guid.NewGuid(),
         " drd01-010 ",
         "2026-10-13",
         30,

@@ -13,10 +13,22 @@ public sealed class ReceberOvoHandler(AppDbContext db, UserManager<Usuario> user
 {
     public async Task<Ovo> HandleAsync(ReceberOvoRequest request, ClaimsPrincipal usuarioAutenticado)
     {
+        if (request.ClientId == Guid.Empty)
+            throw new ApplicationErrorException(ReceberOvoErros.ClientIdObrigatorio);
+
+        var usuario = await ObterUsuarioAsync(usuarioAutenticado);
+        var existente = await db.Ovos
+            .Include(ovo => ovo.Lote)
+            .SingleOrDefaultAsync(ovo =>
+                ovo.ClientId == request.ClientId &&
+                ovo.Lote.IncubatorioIdentificador == usuario.Incubatorio);
+
+        if (existente is not null)
+            return existente;
+
         var dataPostura = ParseDataPostura(request.DataPostura);
         var horaRecebimento = ParseHoraRecebimento(request.HoraRecebimento);
 
-        var usuario = await ObterUsuarioAsync(usuarioAutenticado);
         var lote = await ObterLoteAsync(request.Lote, usuario.Incubatorio);
 
         var dados = CriarDados(request, dataPostura, horaRecebimento);
@@ -89,6 +101,7 @@ public sealed class ReceberOvoHandler(AppDbContext db, UserManager<Usuario> user
     {
         return new OvoRecebimentoDados
         {
+            ClientId = request.ClientId,
             DataPostura = dataPostura,
             NinhoIncubavel = request.NinhoIncubavel,
             CamaIncubavel = request.CamaIncubavel,

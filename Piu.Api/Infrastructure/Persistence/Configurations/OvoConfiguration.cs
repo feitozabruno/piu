@@ -11,6 +11,7 @@ public sealed class OvoConfiguration : IEntityTypeConfiguration<Ovo>
         builder.ToTable("Ovos");
 
         builder.HasKey(ovo => ovo.Id);
+        builder.HasIndex(ovo => ovo.ClientId).IsUnique();
 
         builder.Property(ovo => ovo.DataPostura).IsRequired();
         builder.Property(ovo => ovo.NinhoIncubavel).IsRequired();

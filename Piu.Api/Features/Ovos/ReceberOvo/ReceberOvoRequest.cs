@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 namespace Piu.Api.Features.Ovos.ReceberOvo;
 
 public sealed record ReceberOvoRequest(
+    Guid ClientId,
+
     [Required(ErrorMessage = ReceberOvoErros.LoteObrigatorio)]
     string Lote,
 

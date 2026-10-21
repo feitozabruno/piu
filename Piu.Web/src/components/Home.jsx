@@ -14,7 +14,8 @@ const workAreas = [
 ];
 
 export function Home() {
-  const [showModalRecebimentoOvos, setShowModalRecebimentoOvos] = useState(false);
+  const [showModalRecebimentoOvos, setShowModalRecebimentoOvos] =
+    useState(false);
 
   return (
     <main className="min-h-screen bg-[#f4f6f8] text-zinc-950">

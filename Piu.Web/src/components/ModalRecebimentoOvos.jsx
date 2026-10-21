@@ -103,7 +103,8 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
                 Recebimento registrado
               </DialogTitle>
               <DialogDescription className="text-base font-medium text-zinc-700">
-                O novo lote foi validado e está pronto para sincronização.
+                O recebimento foi salvo no dispositivo e será sincronizado
+                automaticamente quando houver conexão.
               </DialogDescription>
             </DialogHeader>
             <DialogClose asChild>

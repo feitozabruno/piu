@@ -1,5 +1,5 @@
-using Piu.Api.Features.Ovos.ReceberOvo;
 using Piu.Api.Features.Ovos.ConsultarOvo;
+using Piu.Api.Features.Ovos.ReceberOvo;
 
 namespace Piu.Api.Features.Ovos;
 

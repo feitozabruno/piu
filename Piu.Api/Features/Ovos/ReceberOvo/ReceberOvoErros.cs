@@ -4,6 +4,8 @@ namespace Piu.Api.Features.Ovos.ReceberOvo;
 
 public static class ReceberOvoErros
 {
+    public static readonly ApplicationError ClientIdObrigatorio =
+        new("CLIENT_ID_OBRIGATORIO", "O identificador do recebimento é obrigatório.");
     public const string LoteObrigatorio = "O lote é obrigatório.";
     public const string DataPosturaObrigatoria = "A data de postura é obrigatória.";
     public const string NinhoIncubavelInvalido = "A quantidade de ovos de ninho deve ser maior ou igual a zero.";

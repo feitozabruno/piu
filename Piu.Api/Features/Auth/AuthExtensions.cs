@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
-using Piu.Api.Infrastructure.Persistence;
 using Piu.Api.Features.Auth.CadastrarUsuario;
 using Piu.Api.Features.Auth.FazerLogin;
+using Piu.Api.Infrastructure.Persistence;
 
 namespace Piu.Api.Features.Auth;
 
