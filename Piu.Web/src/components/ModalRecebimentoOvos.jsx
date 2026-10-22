@@ -1,11 +1,6 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2, ClipboardList } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useReceberLote } from "@/hooks/useReceberLote";
-import { useLotes } from "@/hooks/useLotes";
+import { useModalRecebimentoOvos } from "@/hooks/useModalRecebimentoOvos";
 import {
   Dialog,
   DialogContent,
@@ -16,105 +11,23 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 
-const receiptSchema = z
-  .object({
-    lote: z.string().trim().min(1, "Informe o lote."),
-    dataPostura: z.string().min(1, "Informe a data de postura."),
-    ninhoIncubavel: z.coerce
-      .number({ message: "Informe a quantidade de ovos." })
-      .int("Informe um número inteiro.")
-      .min(0, "A quantidade não pode ser negativa."),
-    camaIncubavel: z.coerce
-      .number({ message: "Informe a quantidade de ovos." })
-      .int("Informe um número inteiro.")
-      .min(0, "A quantidade não pode ser negativa."),
-    temperaturaOvo: z.coerce.number({ message: "Informe a temperatura." }),
-    temperaturaBau: z.coerce.number({ message: "Informe a temperatura." }),
-    placaCaminhao: z.string().trim().min(1, "Informe a placa do caminhão."),
-    motorista: z.string().trim().min(1, "Informe o motorista."),
-    horaRecebimento: z.string().min(1, "Informe a hora de recebimento."),
-    observacao: z.string(),
-  })
-  .refine(
-    ({ ninhoIncubavel, camaIncubavel }) =>
-      ninhoIncubavel > 0 || camaIncubavel > 0,
-    {
-      message: "Informe uma quantidade de ovos maior que zero.",
-      path: ["ninhoIncubavel"],
-    },
-  );
-
-function getDefaultValues() {
-  const agora = new Date();
-  const ontem = new Date(agora);
-  ontem.setDate(ontem.getDate() - 1);
-
-  return {
-    lote: "",
-    dataPostura: formatarDataLocal(ontem),
-    ninhoIncubavel: "",
-    camaIncubavel: "",
-    temperaturaOvo: "",
-    temperaturaBau: "",
-    placaCaminhao: "",
-    motorista: "",
-    horaRecebimento: formatarDataHoraLocal(agora),
-    observacao: "",
-  };
-}
-
-const defaultValues = getDefaultValues();
-
-function formatarDataLocal(data) {
-  return [
-    data.getFullYear(),
-    String(data.getMonth() + 1).padStart(2, "0"),
-    String(data.getDate()).padStart(2, "0"),
-  ].join("-");
-}
-
-function formatarDataHoraLocal(data) {
-  return `${formatarDataLocal(data)}T${String(data.getHours()).padStart(2, "0")}:${String(data.getMinutes()).padStart(2, "0")}`;
-}
-
 export function ModalRecebimentoOvos({ open, onOpenChange }) {
-  const [submitted, setSubmitted] = useState(false);
   const {
-    handleSubmit: submitReceipt,
-    isSubmitting: isSaving,
     apiError,
-  } = useReceberLote();
-  const { lotes, error: lotesError } = useLotes(open);
-  const {
-    register,
+    errors,
+    handleOpen,
+    handleReceiptSubmit,
     handleSubmit,
-    reset,
-    formState: { errors, isSubmitting: isFormSubmitting },
-  } = useForm({
-    resolver: zodResolver(receiptSchema),
-    mode: "onChange",
-    reValidateMode: "onChange",
-    defaultValues,
-  });
-
-  function handleOpen(nextOpen) {
-    if (nextOpen) reset(getDefaultValues());
-    handleOpenChange(nextOpen);
-  }
-
-  function handleOpenChange(nextOpen) {
-    if (!nextOpen) {
-      reset(getDefaultValues());
-      setSubmitted(false);
-    }
-    onOpenChange(nextOpen);
-  }
-
-  async function handleReceiptSubmit(data) {
-    if (await submitReceipt(data)) {
-      setSubmitted(true);
-    }
-  }
+    isFormSubmitting,
+    isSaving,
+    lotes,
+    lotesError,
+    motoristas,
+    placas,
+    register,
+    registerUppercaseField,
+    submitted,
+  } = useModalRecebimentoOvos(open, onOpenChange);
 
   return (
     <Dialog open={open} onOpenChange={handleOpen}>
@@ -167,12 +80,12 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
                   id="lote"
                   {...register("lote")}
                   aria-invalid={Boolean(errors.lote)}
-                  className={fieldClass(Boolean(errors.lote))}
+                  className={`${fieldClass(Boolean(errors.lote))} uppercase`}
                 >
                   <option value="">Selecione o lote</option>
                   {lotes.map((lote) => (
-                    <option key={lote.id} value={lote.nome}>
-                      {lote.nome}
+                    <option key={lote.id} value={lote.nome.toUpperCase()}>
+                      {lote.nome.toUpperCase()}
                     </option>
                   ))}
                 </select>
@@ -252,11 +165,17 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
                 <input
                   id="placaCaminhao"
                   type="text"
-                  {...register("placaCaminhao")}
+                  {...registerUppercaseField("placaCaminhao")}
+                  list="placas-disponiveis"
                   aria-invalid={Boolean(errors.placaCaminhao)}
-                  className={fieldClass(Boolean(errors.placaCaminhao))}
+                  className={`${fieldClass(Boolean(errors.placaCaminhao))} uppercase`}
                   placeholder="Ex.: REW0H06"
                 />
+                <datalist id="placas-disponiveis">
+                  {placas.map((placa) => (
+                    <option key={placa} value={placa} />
+                  ))}
+                </datalist>
               </FormField>
 
               <FormField
@@ -297,11 +216,17 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
                 <input
                   id="motorista"
                   type="text"
-                  {...register("motorista")}
+                  {...registerUppercaseField("motorista")}
+                  list="motoristas-disponiveis"
                   aria-invalid={Boolean(errors.motorista)}
-                  className={fieldClass(Boolean(errors.motorista))}
+                  className={`${fieldClass(Boolean(errors.motorista))} uppercase`}
                   placeholder="Ex.: VLADEMIR"
                 />
+                <datalist id="motoristas-disponiveis">
+                  {motoristas.map((motorista) => (
+                    <option key={motorista} value={motorista} />
+                  ))}
+                </datalist>
               </FormField>
 
               <div className="sm:col-span-2">
@@ -313,9 +238,9 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
                   <input
                     id="observacao"
                     type="text"
-                    {...register("observacao")}
+                    {...registerUppercaseField("observacao")}
                     aria-invalid={Boolean(errors.observacao)}
-                    className={fieldClass(Boolean(errors.observacao))}
+                    className={`${fieldClass(Boolean(errors.observacao))} uppercase`}
                     placeholder="Ex.: Nenhuma anomalia."
                   />
                 </FormField>
