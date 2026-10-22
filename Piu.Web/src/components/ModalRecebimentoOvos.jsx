@@ -1,5 +1,8 @@
 import { CheckCircle2, ClipboardList } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select } from "@/components/ui/select";
 import { useModalRecebimentoOvos } from "@/hooks/useModalRecebimentoOvos";
 import {
   Dialog,
@@ -76,7 +79,7 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
 
             <div className="grid gap-5 sm:grid-cols-2">
               <FormField id="lote" label="Lote" error={errors.lote?.message}>
-                <select
+                <Select
                   id="lote"
                   {...register("lote")}
                   aria-invalid={Boolean(errors.lote)}
@@ -88,7 +91,7 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
                       {lote.nome.toUpperCase()}
                     </option>
                   ))}
-                </select>
+                </Select>
               </FormField>
 
               <FormField
@@ -96,7 +99,7 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
                 label="Data de postura"
                 error={errors.dataPostura?.message}
               >
-                <input
+                <Input
                   id="dataPostura"
                   type="date"
                   {...register("dataPostura")}
@@ -110,7 +113,7 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
                 label="Quantidade Ovos Ninho"
                 error={errors.ninhoIncubavel?.message}
               >
-                <input
+                <Input
                   id="ninhoIncubavel"
                   type="number"
                   min="0"
@@ -128,7 +131,7 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
                 label="Quantidade Ovos Cama"
                 error={errors.camaIncubavel?.message}
               >
-                <input
+                <Input
                   id="camaIncubavel"
                   type="number"
                   min="0"
@@ -146,7 +149,7 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
                 label="Temperatura Ovo"
                 error={errors.temperaturaOvo?.message}
               >
-                <input
+                <Input
                   id="temperaturaOvo"
                   type="number"
                   step="0.1"
@@ -162,7 +165,7 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
                 label="Placa Caminhão"
                 error={errors.placaCaminhao?.message}
               >
-                <input
+                <Input
                   id="placaCaminhao"
                   type="text"
                   {...registerUppercaseField("placaCaminhao")}
@@ -183,7 +186,7 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
                 label="Temperatura Baú"
                 error={errors.temperaturaBau?.message}
               >
-                <input
+                <Input
                   id="temperaturaBau"
                   type="number"
                   step="0.1"
@@ -199,7 +202,7 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
                 label="Hora Recebimento"
                 error={errors.horaRecebimento?.message}
               >
-                <input
+                <Input
                   id="horaRecebimento"
                   type="datetime-local"
                   {...register("horaRecebimento")}
@@ -213,7 +216,7 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
                 label="Motorista"
                 error={errors.motorista?.message}
               >
-                <input
+                <Input
                   id="motorista"
                   type="text"
                   {...registerUppercaseField("motorista")}
@@ -235,7 +238,7 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
                   label="Observação"
                   error={errors.observacao?.message}
                 >
-                  <input
+                  <Input
                     id="observacao"
                     type="text"
                     {...registerUppercaseField("observacao")}
@@ -277,12 +280,12 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
 function FormField({ id, label, hint, error, children }) {
   return (
     <div className="flex flex-col gap-2">
-      <label
+      <Label
         htmlFor={id}
         className="text-sm font-black uppercase tracking-wide"
       >
         {label}
-      </label>
+      </Label>
       {children}
       {hint && !error && (
         <p className="text-sm font-medium text-zinc-500">{hint}</p>
