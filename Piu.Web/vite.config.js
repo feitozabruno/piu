@@ -8,11 +8,14 @@ import { VitePWA } from "vite-plugin-pwa";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   server: {
     proxy: {
       "/api": {
-        target: "https://piu-vhfi.onrender.com",
+        target:
+          mode === "development"
+            ? "http://localhost:5000"
+            : "https://piu-vhfi.onrender.com",
         changeOrigin: true,
         secure: true,
       },
@@ -65,4 +68,4 @@ export default defineConfig({
     lint: true,
     format: true,
   },
-});
+}));
