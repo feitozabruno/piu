@@ -13,6 +13,13 @@ db.version(2).stores({
   configuracao: "chave",
 });
 
+export async function substituirLotes(lotes) {
+  await db.transaction("rw", db.lotes, async () => {
+    await db.lotes.clear();
+    await db.lotes.bulkPut(lotes);
+  });
+}
+
 export async function enfileirarRecebimento(payload) {
   const clientId = crypto.randomUUID();
 

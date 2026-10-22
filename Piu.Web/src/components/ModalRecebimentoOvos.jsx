@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2, ClipboardList } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useReceberLote } from "@/hooks/useReceberLote";
+import { useLotes } from "@/hooks/useLotes";
 import {
   Dialog,
   DialogContent,
@@ -43,18 +44,38 @@ const receiptSchema = z
     },
   );
 
-const defaultValues = {
-  lote: "",
-  dataPostura: "",
-  ninhoIncubavel: "",
-  camaIncubavel: "",
-  temperaturaOvo: "",
-  temperaturaBau: "",
-  placaCaminhao: "",
-  motorista: "",
-  horaRecebimento: "",
-  observacao: "",
-};
+function getDefaultValues() {
+  const agora = new Date();
+  const ontem = new Date(agora);
+  ontem.setDate(ontem.getDate() - 1);
+
+  return {
+    lote: "",
+    dataPostura: formatarDataLocal(ontem),
+    ninhoIncubavel: "",
+    camaIncubavel: "",
+    temperaturaOvo: "",
+    temperaturaBau: "",
+    placaCaminhao: "",
+    motorista: "",
+    horaRecebimento: formatarDataHoraLocal(agora),
+    observacao: "",
+  };
+}
+
+const defaultValues = getDefaultValues();
+
+function formatarDataLocal(data) {
+  return [
+    data.getFullYear(),
+    String(data.getMonth() + 1).padStart(2, "0"),
+    String(data.getDate()).padStart(2, "0"),
+  ].join("-");
+}
+
+function formatarDataHoraLocal(data) {
+  return `${formatarDataLocal(data)}T${String(data.getHours()).padStart(2, "0")}:${String(data.getMinutes()).padStart(2, "0")}`;
+}
 
 export function ModalRecebimentoOvos({ open, onOpenChange }) {
   const [submitted, setSubmitted] = useState(false);
@@ -63,6 +84,7 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
     isSubmitting: isSaving,
     apiError,
   } = useReceberLote();
+  const { lotes, error: lotesError } = useLotes(open);
   const {
     register,
     handleSubmit,
@@ -75,9 +97,14 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
     defaultValues,
   });
 
+  function handleOpen(nextOpen) {
+    if (nextOpen) reset(getDefaultValues());
+    handleOpenChange(nextOpen);
+  }
+
   function handleOpenChange(nextOpen) {
     if (!nextOpen) {
-      reset(defaultValues);
+      reset(getDefaultValues());
       setSubmitted(false);
     }
     onOpenChange(nextOpen);
@@ -90,7 +117,7 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
   }
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpen}>
       <DialogContent className="max-h-[90vh] overflow-y-auto rounded-2xl border-4 border-zinc-950 bg-white p-4 shadow-[0_7px_0_0_#18181b] sm:max-w-2xl sm:p-8">
         {submitted ? (
           <div aria-live="polite" className="flex flex-col items-start gap-3">
@@ -136,14 +163,19 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
 
             <div className="grid gap-5 sm:grid-cols-2">
               <FormField id="lote" label="Lote" error={errors.lote?.message}>
-                <input
+                <select
                   id="lote"
-                  type="text"
                   {...register("lote")}
                   aria-invalid={Boolean(errors.lote)}
                   className={fieldClass(Boolean(errors.lote))}
-                  placeholder="Ex.: DRD03-012"
-                />
+                >
+                  <option value="">Selecione o lote</option>
+                  {lotes.map((lote) => (
+                    <option key={lote.id} value={lote.nome}>
+                      {lote.nome}
+                    </option>
+                  ))}
+                </select>
               </FormField>
 
               <FormField
@@ -293,6 +325,11 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
             {apiError && (
               <p className="text-sm font-bold text-red-700" role="alert">
                 {apiError}
+              </p>
+            )}
+            {lotesError && (
+              <p className="text-sm font-bold text-red-700" role="alert">
+                {lotesError}
               </p>
             )}
 
