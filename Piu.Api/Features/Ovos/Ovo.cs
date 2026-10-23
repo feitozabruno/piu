@@ -1,4 +1,4 @@
-using Piu.Api.Domain;
+using Piu.Api.Exceptions;
 using Piu.Api.Features.Lotes;
 
 namespace Piu.Api.Features.Ovos;

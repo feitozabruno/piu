@@ -1,4 +1,4 @@
-using Piu.Api.Domain;
+using Piu.Api.Exceptions;
 using Piu.Api.Features.Incubatorios;
 
 namespace Piu.Api.UnitTests.Domain;

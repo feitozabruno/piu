@@ -1,6 +1,6 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
-using Piu.Api.Application;
+using Piu.Api.Exceptions;
 
 namespace Piu.Api.Features.Auth.FazerLogin;
 

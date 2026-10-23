@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Piu.Api.Application;
-using Piu.Api.Domain;
+using Piu.Api.Exceptions;
 
 namespace Piu.Api.Middleware;
 

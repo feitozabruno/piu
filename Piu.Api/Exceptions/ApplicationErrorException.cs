@@ -1,4 +1,4 @@
-namespace Piu.Api.Application;
+namespace Piu.Api.Exceptions;
 
 public sealed record ApplicationError(
     string Code,

@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Piu.Api.Application;
+using Piu.Api.Exceptions;
 using Piu.Api.Features.Auth;
 using Piu.Api.Features.Lotes;
 using Piu.Api.Infrastructure.Persistence;

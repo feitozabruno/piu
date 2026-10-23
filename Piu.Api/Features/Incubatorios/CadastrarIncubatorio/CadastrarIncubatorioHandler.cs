@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using Piu.Api.Application;
+using Piu.Api.Exceptions;
 using Piu.Api.Infrastructure.Persistence;
 using Piu.Api.Infrastructure.Persistence.Configurations;
 

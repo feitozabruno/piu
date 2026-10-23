@@ -1,4 +1,4 @@
-using Piu.Api.Application;
+using Piu.Api.Exceptions;
 
 namespace Piu.Api.Features.Ovos.ConsultarOvo;
 

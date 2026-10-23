@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Identity;
-using Piu.Api.Domain;
+using Piu.Api.Exceptions;
 
 namespace Piu.Api.Features.Auth;
 

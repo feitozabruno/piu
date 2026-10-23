@@ -1,4 +1,4 @@
-namespace Piu.Api.Domain;
+namespace Piu.Api.Exceptions;
 
 public sealed record DomainError(string Code, string Message);
 
