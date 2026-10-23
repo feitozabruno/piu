@@ -1,4 +1,4 @@
-namespace Piu.Api.Infrastructure;
+namespace Piu.Api.Extensions;
 
 public static class CorsExtensions
 {

@@ -1,4 +1,4 @@
-namespace Piu.Api.Middleware;
+namespace Piu.Api.Middlewares;
 
 public static class ExceptionHandlingExtensions
 {

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Piu.Api.Exceptions;
 
-namespace Piu.Api.Middleware;
+namespace Piu.Api.Middlewares;
 
 public sealed partial class GlobalExceptionHandler(
     IProblemDetailsService problemDetailsService,

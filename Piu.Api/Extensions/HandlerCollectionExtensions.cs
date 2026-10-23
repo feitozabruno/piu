@@ -6,11 +6,11 @@ using Piu.Api.Features.Lotes.ListarLotes;
 using Piu.Api.Features.Ovos.ConsultarOvo;
 using Piu.Api.Features.Ovos.ReceberOvo;
 
-namespace Piu.Api.Infrastructure;
+namespace Piu.Api.Extensions;
 
 public static class HandlerCollectionExtensions
 {
-    public static IServiceCollection AddHandlers(this IServiceCollection services)
+    public static IServiceCollection AddFeatureHandlers(this IServiceCollection services)
     {
         services.AddScoped<CadastrarUsuarioHandler>();
         services.AddScoped<FazerLoginHandler>();
