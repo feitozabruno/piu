@@ -1,9 +1,9 @@
 import { ArrowLeft, Eye, EyeOff, LockKeyhole, UserRound } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useLogin } from "@/hooks/useLogin";
+import { Button } from "@/shared/components/ui/button";
+import { Input } from "@/shared/components/ui/input";
+import { Label } from "@/shared/components/ui/label";
+import { useLogin } from "@/features/auth/useLogin";
 
 export function TelaDeLogin() {
   const navigate = useNavigate();

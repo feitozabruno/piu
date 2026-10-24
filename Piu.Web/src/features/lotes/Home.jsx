@@ -1,8 +1,8 @@
 import { Cloud, CloudOff, Egg, RefreshCw } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ModalRecebimentoOvos } from "@/components/ModalRecebimentoOvos";
+import { Button } from "@/shared/components/ui/button";
+import { ModalRecebimentoOvos } from "@/features/ovos/ModalRecebimentoOvos";
 import { useState } from "react";
-import { useSyncStatus } from "@/hooks/useSyncStatus";
+import { useSyncStatus } from "@/infrastructure/offline/useSyncStatus";
 
 const workAreas = [
   {

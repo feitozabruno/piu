@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { enfileirarRecebimento } from "@/lib/database";
-import { sincronizarRecebimentos } from "@/lib/sync";
+import { enfileirarRecebimento } from "@/infrastructure/offline/database";
+import { sincronizarRecebimentos } from "@/infrastructure/offline/sync";
 
 export function useReceberLote() {
   const [isSubmitting, setIsSubmitting] = useState(false);

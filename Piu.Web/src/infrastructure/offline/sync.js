@@ -1,5 +1,5 @@
 import { db, registrarUltimaSincronizacao } from "./database";
-import { apiFetch } from "./api";
+import { apiFetch } from "@/shared/lib/api";
 
 let sincronizacaoEmAndamento = false;
 

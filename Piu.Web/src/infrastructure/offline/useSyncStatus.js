@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
-import { db } from "@/lib/database";
+import { db } from "@/infrastructure/offline/database";
 
 export function useSyncStatus() {
   const [online, setOnline] = useState(navigator.onLine);

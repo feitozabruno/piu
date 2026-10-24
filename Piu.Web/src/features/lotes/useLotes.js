@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
-import { apiFetch } from "@/lib/api";
-import { db, substituirLotes } from "@/lib/database";
+import { apiFetch } from "@/shared/lib/api";
+import { db, substituirLotes } from "@/infrastructure/offline/database";
 
 export function useLotes(enabled) {
   const [error, setError] = useState(null);

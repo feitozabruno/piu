@@ -1,9 +1,9 @@
 import { CheckCircle2, ClipboardList } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select } from "@/components/ui/select";
-import { useModalRecebimentoOvos } from "@/hooks/useModalRecebimentoOvos";
+import { Button } from "@/shared/components/ui/button";
+import { Input } from "@/shared/components/ui/input";
+import { Label } from "@/shared/components/ui/label";
+import { Select } from "@/shared/components/ui/select";
+import { useModalRecebimentoOvos } from "@/features/ovos/useModalRecebimentoOvos";
 import {
   Dialog,
   DialogContent,
@@ -11,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogClose,
-} from "@/components/ui/dialog";
+} from "@/shared/components/ui/dialog";
 
 export function ModalRecebimentoOvos({ open, onOpenChange }) {
   const {

@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useReceberLote } from "@/hooks/useReceberLote";
-import { useLotes } from "@/hooks/useLotes";
+import { useReceberLote } from "@/features/ovos/useReceberLote";
+import { useLotes } from "@/features/lotes/useLotes";
 
 const MOTORISTAS_STORAGE_KEY = "piu.motoristas";
 const PLACAS_STORAGE_KEY = "piu.placas-caminhao";

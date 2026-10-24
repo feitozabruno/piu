@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Home } from "@/components/Home";
-import { MenuNavegacao } from "@/components/MenuNavegacao";
-import { TelaDeLogin } from "@/components/TelaDeLogin";
+import { Home } from "@/features/lotes/Home";
+import { TelaDeLogin } from "@/features/auth/TelaDeLogin";
+import { MenuNavegacao } from "@/shared/components/MenuNavegacao";
 
 function App() {
   return (

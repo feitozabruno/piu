@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { apiFetch } from "@/lib/api";
+import { apiFetch } from "@/shared/lib/api";
 
 export function useLogin() {
   const [formData, setFormData] = useState({
