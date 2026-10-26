@@ -16,8 +16,9 @@ Matrizes_V02.pdf](../003290%20-%20Controle%20de%20Ovos%20Recebidos%20das%20Granj
 é copiado como recurso somente leitura para `Resources/` no diretório de execução.
 O PDF tem uma página, tamanho 792 x 612 pontos, orientação paisagem. A origem das
 coordenadas de desenho é o canto superior esquerdo e as unidades são pontos PDF.
-A camada de texto usa a fonte livre `DejaVu Sans`; a imagem Docker instala o pacote
-`fonts-dejavu`, pois o PdfSharpCore depende de uma fonte disponível no sistema.
+A camada de texto usa a fonte livre `DejaVu Sans`, distribuída como recurso da aplicação e
+resolvida diretamente pelo PdfSharpCore. Portanto, o relatório funciona tanto com
+`dotnet run` quanto no container, sem depender de fontes instaladas no sistema.
 
 O relatório usa a data de `HoraRecebimento`, filtra por intervalos UTC semiabertos e
 restringe os dados ao incubatório do usuário autenticado. Como o projeto não possui um fuso

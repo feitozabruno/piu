@@ -17,10 +17,10 @@ public sealed class RelatorioOvosService(
     UserManager<Usuario> userManager,
     IWebHostEnvironment environment)
 {
-    private const double FirstRowY = 101.5;
+    private const double FirstRowY = 108;
     private const double RowHeight = 20.25;
     private const double TextHeight = 9;
-    private const double FontSize = 7;
+    private const double FontSize = 9;
 
     public async Task<RelatorioOvosResult> GerarAsync(
         DateOnly dataInicial,
@@ -81,10 +81,7 @@ public sealed class RelatorioOvosService(
 
     private byte[] GerarPdf(DateOnly data, IReadOnlyList<RelatorioOvosData> registros)
     {
-        var caminhoFormulario = Path.Combine(
-            environment.ContentRootPath,
-            "Resources",
-            RelatorioOvosOptions.NomeFormulario);
+        var caminhoFormulario = ObterCaminhoFormulario();
 
         if (!File.Exists(caminhoFormulario))
             throw new ApplicationErrorException(RelatorioOvosErrors.FormularioIndisponivel);
@@ -102,21 +99,37 @@ public sealed class RelatorioOvosService(
                 var registro = registros[indice];
                 var y = FirstRowY + indice * RowHeight;
 
-                DesenharTexto(grafico, fonte, pincel, data.ToString("dd/MM/yyyy"), 29, y, 62);
-                DesenharTexto(grafico, fonte, pincel, registro.Lote, 93, y, 76);
-                DesenharTexto(grafico, fonte, pincel, registro.NinhoIncubavel.ToString(CultureInfo.InvariantCulture), 172, y, 74);
-                DesenharTexto(grafico, fonte, pincel, registro.CamaIncubavel.ToString(CultureInfo.InvariantCulture), 338, y, 74);
-                DesenharTexto(grafico, fonte, pincel, registro.TotalRecebido.ToString(CultureInfo.InvariantCulture), 399, y, 74);
-                DesenharTexto(grafico, fonte, pincel, registro.TemperaturaRecebimento.ToString("0.##", CultureInfo.InvariantCulture), 461, y, 60);
-                DesenharTexto(grafico, fonte, pincel, registro.PlacaCaminhao, 611, y, 47);
-                DesenharTexto(grafico, fonte, pincel, registro.HoraRecebimento.ToString("HH:mm"), 659, y, 39);
-                DesenharTexto(grafico, fonte, pincel, registro.TemperaturaBau.ToString("0.##", CultureInfo.InvariantCulture), 711, y, 43);
+                DesenharTexto(grafico, fonte, pincel, data.ToString("dd/MM/yyyy"), 35, y, 62);
+                DesenharTexto(grafico, fonte, pincel, registro.Lote, 105, y, 76);
+                DesenharTexto(grafico, fonte, pincel, registro.NinhoIncubavel.ToString(CultureInfo.InvariantCulture), 290, y, 74);
+                DesenharTexto(grafico, fonte, pincel, registro.CamaIncubavel.ToString(CultureInfo.InvariantCulture), 415, y, 74);
+                DesenharTexto(grafico, fonte, pincel, registro.TemperaturaRecebimento.ToString("0.##", CultureInfo.InvariantCulture), 475, y, 60);
+                DesenharTexto(grafico, fonte, pincel, registro.PlacaCaminhao, 613, y, 47);
+                DesenharTexto(grafico, fonte, pincel, registro.HoraRecebimento.ToString("HH:mm"), 675, y, 39);
+                DesenharTexto(grafico, fonte, pincel, registro.TemperaturaBau.ToString("0.##", CultureInfo.InvariantCulture), 725, y, 43);
             }
         }
 
         using var saida = new MemoryStream();
         documento.Save(saida, false);
         return saida.ToArray();
+    }
+
+    private string ObterCaminhoFormulario()
+    {
+        var caminhos = new[]
+        {
+            Path.Combine(
+                AppContext.BaseDirectory,
+                "Resources",
+                RelatorioOvosOptions.NomeFormulario),
+            Path.Combine(
+                environment.ContentRootPath,
+                "Resources",
+                RelatorioOvosOptions.NomeFormulario)
+        };
+
+        return caminhos.FirstOrDefault(File.Exists) ?? caminhos[0];
     }
 
     private static void DesenharTexto(

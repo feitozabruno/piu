@@ -1,5 +1,8 @@
 using Piu.Api.Extensions;
+using PdfSharpCore.Fonts;
+using Piu.Api.Features.Relatorios;
 
+GlobalFontSettings.FontResolver = new RelatorioFontResolver();
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddPiuServices(builder.Configuration);

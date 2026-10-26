@@ -26,6 +26,9 @@
                  Link="Resources/003290 - Controle de Ovos Recebidos das Granjas Matrizes_V02.pdf"
                  CopyToOutputDirectory="PreserveNewest"
                  CopyToPublishDirectory="PreserveNewest" />
+        <Content Include="Resources/Fonts/DejaVuSans.ttf"
+                 CopyToOutputDirectory="PreserveNewest"
+                 CopyToPublishDirectory="PreserveNewest" />
     </ItemGroup>
 
 </Project>
