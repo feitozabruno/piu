@@ -20,7 +20,7 @@ public static class HandlerCollectionExtensions
         services.AddScoped<ListarLotesHandler>();
         services.AddScoped<ReceberOvoHandler>();
         services.AddScoped<ConsultarOvoHandler>();
-        services.AddScoped<RelatorioOvosService>();
+        services.AddScoped<RelatorioOvosHandler>();
 
         return services;
     }

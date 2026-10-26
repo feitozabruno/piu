@@ -11,15 +11,15 @@ using Piu.Api.Infrastructure.Persistence;
 
 namespace Piu.Api.Features.Relatorios;
 
-public sealed class RelatorioOvosService(
+public sealed class RelatorioOvosHandler(
     AppDbContext db,
     UserManager<Usuario> userManager,
     IWebHostEnvironment environment)
 {
-    private const double FirstRowY = 108;
-    private const double RowHeight = 20.25;
-    private const double TextHeight = 9;
-    private const double FontSize = 9;
+    private const double _firstRowY = 108;
+    private const double _rowHeight = 20.25;
+    private const double _textHeight = 9;
+    private const double _fontSize = 9;
 
     public async Task<RelatorioOvosResult> GerarAsync(
         DateOnly dataInicial,
@@ -28,10 +28,10 @@ public sealed class RelatorioOvosService(
         CancellationToken cancellationToken)
     {
         if (dataInicial == default || dataFinal == default || dataInicial > dataFinal)
-            throw new ApplicationErrorException(RelatorioOvosErrors.IntervaloInvalido);
+            throw new ApplicationErrorException(RelatorioOvosErros.IntervaloInvalido);
 
         if (dataFinal.DayNumber - dataInicial.DayNumber + 1 > RelatorioOvosOptions.LimiteDias)
-            throw new ApplicationErrorException(RelatorioOvosErrors.IntervaloInvalido);
+            throw new ApplicationErrorException(RelatorioOvosErros.IntervaloInvalido);
 
         var usuario = await userManager.GetUserAsync(usuarioAutenticado)
             ?? throw new ApplicationErrorException(AuthErros.UsuarioNaoAutenticado);
@@ -46,7 +46,7 @@ public sealed class RelatorioOvosService(
                 && ovo.HoraRecebimento >= inicio
                 && ovo.HoraRecebimento < fim)
             .OrderBy(ovo => ovo.HoraRecebimento)
-            .Select(ovo => new RelatorioOvosData(
+            .Select(ovo => new RelatorioOvosResponse(
                 ovo.HoraRecebimento,
                 ovo.Lote.Nome,
                 ovo.NinhoIncubavel,
@@ -68,7 +68,7 @@ public sealed class RelatorioOvosService(
                 continue;
 
             if (registrosDoDia.Count > RelatorioOvosOptions.RegistrosPorPagina)
-                throw new ApplicationErrorException(RelatorioOvosErrors.LimiteRegistrosExcedido);
+                throw new ApplicationErrorException(RelatorioOvosErros.LimiteRegistrosExcedido);
 
             arquivos.Add(new RelatorioOvosArquivo(
                 data,
@@ -78,32 +78,31 @@ public sealed class RelatorioOvosService(
         return new RelatorioOvosResult(arquivos);
     }
 
-    private byte[] GerarPdf(DateOnly data, IReadOnlyList<RelatorioOvosData> registros)
+    private byte[] GerarPdf(DateOnly data, IReadOnlyList<RelatorioOvosResponse> registros)
     {
         var caminhoFormulario = ObterCaminhoFormulario();
 
         if (!File.Exists(caminhoFormulario))
-            throw new ApplicationErrorException(RelatorioOvosErrors.FormularioIndisponivel);
+            throw new ApplicationErrorException(RelatorioOvosErros.FormularioIndisponivel);
 
         using var entrada = File.OpenRead(caminhoFormulario);
         using var documento = PdfReader.Open(entrada, PdfDocumentOpenMode.Modify);
         var pagina = documento.Pages[0];
         using (var grafico = XGraphics.FromPdfPage(pagina, XGraphicsPdfPageOptions.Append))
         {
-            var fonte = new XFont("DejaVu Sans", FontSize, XFontStyleEx.Regular);
+            var fonte = new XFont("DejaVu Sans", _fontSize, XFontStyleEx.Regular);
             var pincel = new XSolidBrush(XColor.FromArgb(0, 0, 0));
 
             for (var indice = 0; indice < registros.Count; indice++)
             {
                 var registro = registros[indice];
-                var y = FirstRowY + indice * RowHeight;
+                var y = _firstRowY + indice * _rowHeight;
 
                 DesenharTexto(grafico, fonte, pincel, data.ToString("dd/MM/yyyy"), 35, y, 62);
                 DesenharTexto(grafico, fonte, pincel, registro.Lote, 105, y, 76);
                 DesenharTexto(grafico, fonte, pincel, registro.NinhoIncubavel.ToString(CultureInfo.InvariantCulture), 290, y, 74);
                 DesenharTexto(grafico, fonte, pincel, registro.CamaIncubavel.ToString(CultureInfo.InvariantCulture), 415, y, 74);
                 DesenharTexto(grafico, fonte, pincel, registro.TemperaturaRecebimento.ToString("0.0", CultureInfo.InvariantCulture), 525, y, 60);
-                // DesenharTexto(grafico, fonte, pincel, registro.TemperaturaRecebimento.ToString("0.0", CultureInfo.InvariantCulture), 475, y, 60);
                 DesenharTexto(grafico, fonte, pincel, registro.PlacaCaminhao, 613, y, 47);
                 DesenharTexto(grafico, fonte, pincel, registro.HoraRecebimento.ToString("HH:mm"), 675, y, 39);
                 DesenharTexto(grafico, fonte, pincel, registro.TemperaturaBau.ToString("0.##", CultureInfo.InvariantCulture), 725, y, 43);
@@ -141,7 +140,7 @@ public sealed class RelatorioOvosService(
         double y,
         double largura)
     {
-        var retangulo = new XRect(x, y, largura, TextHeight);
+        var retangulo = new XRect(x, y, largura, _textHeight);
         grafico.DrawString(
             texto,
             fonte,
@@ -173,4 +172,11 @@ public sealed record RelatorioOvosResult(IReadOnlyList<RelatorioOvosArquivo> Arq
 
         return saida.ToArray();
     }
+}
+
+public sealed class RelatorioOvosOptions
+{
+    public const int RegistrosPorPagina = 10;
+    public const int LimiteDias = 31;
+    public const string NomeFormulario = "3290.pdf";
 }

@@ -16,7 +16,6 @@ public static class ServiceCollectionExtensions
         services.AddDatabase(configuration);
         services.AddAuth();
         services.AddFeatureHandlers();
-        services.AddOvoReport();
         services.AddValidation();
         services.AddWebCors();
 

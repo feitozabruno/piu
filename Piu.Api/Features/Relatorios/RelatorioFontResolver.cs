@@ -7,7 +7,7 @@ public sealed class RelatorioFontResolver : IFontResolver
     public const string FontKey = "DejaVuSans#";
     public string DefaultFontName => FontKey;
 
-    private static readonly byte[] FontData = LoadFont();
+    private static readonly byte[] _fontData = LoadFont();
 
     public FontResolverInfo? ResolveTypeface(string familyName, bool isBold, bool isItalic)
     {
@@ -17,7 +17,7 @@ public sealed class RelatorioFontResolver : IFontResolver
     }
 
     public byte[]? GetFont(string faceName) =>
-        faceName == FontKey ? FontData : null;
+        faceName == FontKey ? _fontData : null;
 
     private static byte[] LoadFont()
     {

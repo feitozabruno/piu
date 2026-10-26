@@ -2,7 +2,7 @@ using Piu.Api.Exceptions;
 
 namespace Piu.Api.Features.Relatorios;
 
-public static class RelatorioOvosErrors
+public static class RelatorioOvosErros
 {
     public static readonly ApplicationError IntervaloInvalido =
         new("INTERVALO_RELATORIO_INVALIDO", "A data inicial deve ser anterior ou igual à data final.");

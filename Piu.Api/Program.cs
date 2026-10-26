@@ -1,5 +1,5 @@
-using Piu.Api.Extensions;
 using PdfSharp.Fonts;
+using Piu.Api.Extensions;
 using Piu.Api.Features.Relatorios;
 
 GlobalFontSettings.FontResolver = new RelatorioFontResolver();

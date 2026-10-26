@@ -16,10 +16,10 @@ public static class RelatorioOvosEndpoint
         DateOnly dataInicial,
         DateOnly dataFinal,
         ClaimsPrincipal usuarioAutenticado,
-        RelatorioOvosService service,
+        RelatorioOvosHandler handler,
         CancellationToken cancellationToken)
     {
-        var resultado = await service.GerarAsync(
+        var resultado = await handler.GerarAsync(
             dataInicial,
             dataFinal,
             usuarioAutenticado,

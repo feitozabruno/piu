@@ -1,6 +1,6 @@
 namespace Piu.Api.Features.Relatorios;
 
-public sealed record RelatorioOvosData(
+public sealed record RelatorioOvosResponse(
     DateTime HoraRecebimento,
     string Lote,
     int NinhoIncubavel,
@@ -8,4 +8,5 @@ public sealed record RelatorioOvosData(
     int TotalRecebido,
     decimal TemperaturaRecebimento,
     decimal TemperaturaBau,
-    string PlacaCaminhao);
+    string PlacaCaminhao
+);
