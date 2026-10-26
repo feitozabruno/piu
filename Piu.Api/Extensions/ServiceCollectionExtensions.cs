@@ -1,5 +1,6 @@
 using Piu.Api.Extensions;
 using Piu.Api.Features.Auth;
+using Piu.Api.Features.Relatorios;
 using Piu.Api.Infrastructure.Persistence;
 using Piu.Api.Middlewares;
 
@@ -15,6 +16,7 @@ public static class ServiceCollectionExtensions
         services.AddDatabase(configuration);
         services.AddAuth();
         services.AddFeatureHandlers();
+        services.AddOvoReport();
         services.AddValidation();
         services.AddWebCors();
 
