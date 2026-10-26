@@ -1,16 +1,31 @@
-import { House, LogIn } from "lucide-react";
-import { NavLink, useLocation } from "react-router-dom";
+import { House, LogIn, LogOut } from "lucide-react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Button } from "@/shared/components/ui/button";
+import { useAuth } from "@/features/auth/useAuth";
 
-const navigationItems = [
-  { to: "/", label: "Home", icon: House },
-  { to: "/entrar", label: "Login", icon: LogIn },
-];
+const homeNavigationItem = { to: "/", label: "Home", icon: House };
+const loginNavigationItem = { to: "/entrar", label: "Login", icon: LogIn };
 
 export function MenuNavegacao() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const { isAuthenticated, error, logout } = useAuth(pathname);
 
   if (pathname === "/entrar") {
     return null;
+  }
+
+  const navigationItems = [
+    homeNavigationItem,
+    ...(isAuthenticated === false ? [loginNavigationItem] : []),
+  ];
+
+  async function handleLogout() {
+    const loggedOut = await logout();
+
+    if (loggedOut) {
+      navigate("/entrar", { replace: true });
+    }
   }
 
   return (
@@ -45,6 +60,18 @@ export function MenuNavegacao() {
               {label}
             </NavLink>
           ))}
+          {isAuthenticated === true && (
+            <Button
+              type="button"
+              onClick={handleLogout}
+              aria-label="Sair da conta"
+              title={error ?? "Sair da conta"}
+              className="min-h-10 rounded-xl bg-transparent px-3 text-xs font-black uppercase tracking-[0.06em] text-zinc-600 shadow-none hover:bg-white hover:text-zinc-950 focus-visible:outline-4 focus-visible:outline-[#f6c945] sm:px-4 sm:text-sm"
+            >
+              <LogOut aria-hidden="true" className="size-4" strokeWidth={2.5} />
+              Sair
+            </Button>
+          )}
         </div>
       </div>
     </nav>

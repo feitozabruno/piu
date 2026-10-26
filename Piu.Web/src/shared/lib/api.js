@@ -21,6 +21,11 @@ export async function apiFetch(endpoint, options = {}) {
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => null);
+
+    if (response.status === 401 && !endpoint.startsWith("/auth/")) {
+      window.dispatchEvent(new CustomEvent("auth:unauthorized"));
+    }
+
     const error = new Error(
       errorData?.detail ??
         errorData?.title ??

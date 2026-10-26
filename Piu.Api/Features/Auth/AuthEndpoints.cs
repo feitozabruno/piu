@@ -10,6 +10,8 @@ public static class AuthEndpoints
         var grupo = app.MapGroup("/api/v1/auth").WithTags("Autenticação");
         CadastrarUsuarioEndpoint.Map(grupo);
         FazerLoginEndpoint.Map(grupo);
+        SessaoEndpoint.Map(grupo);
+        SairEndpoint.Map(grupo);
 
         return app;
     }
