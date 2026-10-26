@@ -1,0 +1,17 @@
+@baseUrl = http://localhost:5000/api/v1
+
+### Criar incubatório e gerente (requer sessão de Administrador)
+POST {{baseUrl}}/admin/incubatorios
+Content-Type: application/json
+
+{
+  "identificador": "INC-002",
+  "nome": "Incubatório Norte",
+  "sigla": "NOR",
+  "usuarioGerente": "gerente.norte",
+  "senhaGerente": "Senha123",
+  "nomeGerente": "Gerente do Norte"
+}
+
+### Listar incubatórios
+GET {{baseUrl}}/admin/incubatorios

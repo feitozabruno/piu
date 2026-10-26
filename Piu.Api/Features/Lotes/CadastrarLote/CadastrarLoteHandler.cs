@@ -30,11 +30,13 @@ public class CadastrarLoteHandler(
 
         var usuario = await userManager.GetUserAsync(usuarioAutenticado)
             ?? throw new ApplicationErrorException(CadastrarLoteErros.UsuarioNaoAutenticado);
+        var incubatorio = usuario.Incubatorio
+            ?? throw new ApplicationErrorException(CadastrarLoteErros.UsuarioNaoAutenticado);
 
         var lote = Lote.Criar(
             request.Nome,
             dataNascimento,
-            usuario.Incubatorio);
+            incubatorio);
 
         db.Lotes.Add(lote);
 

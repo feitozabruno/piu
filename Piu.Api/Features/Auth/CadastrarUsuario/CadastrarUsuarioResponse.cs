@@ -5,5 +5,5 @@ public sealed record CadastrarUsuarioResponse(
     string Usuario,
     string Nome,
     string Cargo,
-    string Incubatorio
+    string? Incubatorio
 );

@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Identity;
 using Piu.Api.Features.Auth.CadastrarUsuario;
 using Piu.Api.Features.Auth.FazerLogin;
 using Piu.Api.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Identity;
 
 namespace Piu.Api.Features.Auth;
 
@@ -12,7 +12,9 @@ public static class AuthExtensions
         services.AddAuthentication(IdentityConstants.ApplicationScheme)
             .AddIdentityCookies();
 
-        services.AddAuthorizationBuilder();
+        services.AddAuthorizationBuilder()
+            .AddPolicy(Usuario.Administrador, policy => policy.RequireClaim("perfil", Usuario.Administrador))
+            .AddPolicy(Usuario.Gerente, policy => policy.RequireClaim("perfil", Usuario.Gerente));
 
         services.AddIdentityCore<Usuario>(options =>
         {
@@ -30,6 +32,7 @@ public static class AuthExtensions
         })
         .AddEntityFrameworkStores<AppDbContext>()
         .AddSignInManager();
+        services.AddScoped<IUserClaimsPrincipalFactory<Usuario>, UsuarioClaimsPrincipalFactory>();
 
         services.ConfigureApplicationCookie(options =>
         {

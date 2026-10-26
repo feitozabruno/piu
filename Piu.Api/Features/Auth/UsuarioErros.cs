@@ -4,6 +4,8 @@ namespace Piu.Api.Features.Auth;
 
 public static class UsuarioErros
 {
+    public static readonly DomainError PerfilInvalido =
+        new("PERFIL_INVALIDO", "O perfil informado é inválido.");
     public static readonly DomainError UsuarioObrigatorio =
         new("USUARIO_OBRIGATORIO", "O nome de usuário é obrigatório.");
 

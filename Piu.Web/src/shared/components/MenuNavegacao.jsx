@@ -1,4 +1,4 @@
-import { House, LogIn, LogOut } from "lucide-react";
+import { House, LogIn, LogOut, ShieldCheck, Users } from "lucide-react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/shared/components/ui/button";
 import { useAuth } from "@/features/auth/useAuth";
@@ -9,7 +9,7 @@ const loginNavigationItem = { to: "/entrar", label: "Login", icon: LogIn };
 export function MenuNavegacao() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { isAuthenticated, error, logout } = useAuth(pathname);
+  const { isAuthenticated, perfil, error, logout } = useAuth(pathname);
 
   if (pathname === "/entrar") {
     return null;
@@ -17,6 +17,12 @@ export function MenuNavegacao() {
 
   const navigationItems = [
     homeNavigationItem,
+    ...(perfil === "Administrador"
+      ? [{ to: "/administracao", label: "Administração", icon: ShieldCheck }]
+      : []),
+    ...(perfil === "Gerente"
+      ? [{ to: "/gerencia", label: "Funcionários", icon: Users }]
+      : []),
     ...(isAuthenticated === false ? [loginNavigationItem] : []),
   ];
 

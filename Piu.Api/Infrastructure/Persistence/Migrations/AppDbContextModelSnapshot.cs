@@ -185,7 +185,6 @@ namespace Piu.Api.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Incubatorio")
-                        .IsRequired()
                         .HasColumnType("citext");
 
                     b.Property<bool>("LockoutEnabled")
@@ -209,6 +208,13 @@ namespace Piu.Api.Data.Migrations
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
+
+                    b.Property<string>("Perfil")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)")
+                        .HasDefaultValue("Funcionario");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
@@ -419,7 +425,6 @@ namespace Piu.Api.Data.Migrations
                         .WithMany()
                         .HasForeignKey("Incubatorio")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
                         .HasConstraintName("FK_Usuarios_Incubatorios_IncubatorioIdentificador");
                 });
 

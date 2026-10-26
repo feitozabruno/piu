@@ -3,6 +3,8 @@ import { apiFetch } from "@/shared/lib/api";
 
 export function useAuth(pathname) {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [perfil, setPerfil] = useState(null);
+  const [incubatorio, setIncubatorio] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -13,12 +15,16 @@ export function useAuth(pathname) {
         if (!isMounted) return;
 
         setIsAuthenticated(session?.autenticado === true);
+        setPerfil(session?.perfil ?? null);
+        setIncubatorio(session?.incubatorio ?? null);
         setError(null);
       })
       .catch((err) => {
         if (!isMounted) return;
 
         setIsAuthenticated(false);
+        setPerfil(null);
+        setIncubatorio(null);
         setError(err.message);
       });
 
@@ -40,5 +46,5 @@ export function useAuth(pathname) {
     }
   };
 
-  return { isAuthenticated, error, logout };
+  return { isAuthenticated, perfil, incubatorio, error, logout };
 }

@@ -17,11 +17,13 @@ public sealed class ReceberOvoHandler(AppDbContext db, UserManager<Usuario> user
             throw new ApplicationErrorException(ReceberOvoErros.ClientIdObrigatorio);
 
         var usuario = await ObterUsuarioAsync(usuarioAutenticado);
+        var incubatorio = usuario.Incubatorio
+            ?? throw new ApplicationErrorException(AuthErros.UsuarioNaoAutenticado);
         var existente = await db.Ovos
             .Include(ovo => ovo.Lote)
             .SingleOrDefaultAsync(ovo =>
                 ovo.ClientId == request.ClientId &&
-                ovo.Lote.IncubatorioIdentificador == usuario.Incubatorio);
+                ovo.Lote.IncubatorioIdentificador == incubatorio);
 
         if (existente is not null)
             return existente;
@@ -29,7 +31,7 @@ public sealed class ReceberOvoHandler(AppDbContext db, UserManager<Usuario> user
         var dataPostura = ParseDataPostura(request.DataPostura);
         var horaRecebimento = ParseHoraRecebimento(request.HoraRecebimento);
 
-        var lote = await ObterLoteAsync(request.Lote, usuario.Incubatorio);
+        var lote = await ObterLoteAsync(request.Lote, incubatorio);
 
         var dados = CriarDados(request, dataPostura, horaRecebimento);
         var ovo = Ovo.Receber(lote, dados);
