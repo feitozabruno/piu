@@ -22,8 +22,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="../003290 - Controle de Ovos Recebidos das Granjas Matrizes_V02.pdf"
-            Link="Resources/003290 - Controle de Ovos Recebidos das Granjas Matrizes_V02.pdf"
+        <Content Include="Resources/3290.pdf"
+            Link="Resources/3290.pdf"
             CopyToOutputDirectory="PreserveNewest"
             CopyToPublishDirectory="PreserveNewest" />
         <Content Include="Resources/Fonts/DejaVuSans.ttf"
