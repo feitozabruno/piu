@@ -3,9 +3,8 @@ using System.IO.Compression;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using PdfSharpCore.Drawing;
-using PdfSharpCore.Pdf;
-using PdfSharpCore.Pdf.IO;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf.IO;
 using Piu.Api.Exceptions;
 using Piu.Api.Features.Auth;
 using Piu.Api.Infrastructure.Persistence;
@@ -91,7 +90,7 @@ public sealed class RelatorioOvosService(
         var pagina = documento.Pages[0];
         using (var grafico = XGraphics.FromPdfPage(pagina, XGraphicsPdfPageOptions.Append))
         {
-            var fonte = new XFont("DejaVu Sans", FontSize, XFontStyle.Regular);
+            var fonte = new XFont("DejaVu Sans", FontSize, XFontStyleEx.Regular);
             var pincel = new XSolidBrush(XColor.FromArgb(0, 0, 0));
 
             for (var indice = 0; indice < registros.Count; indice++)
@@ -103,7 +102,8 @@ public sealed class RelatorioOvosService(
                 DesenharTexto(grafico, fonte, pincel, registro.Lote, 105, y, 76);
                 DesenharTexto(grafico, fonte, pincel, registro.NinhoIncubavel.ToString(CultureInfo.InvariantCulture), 290, y, 74);
                 DesenharTexto(grafico, fonte, pincel, registro.CamaIncubavel.ToString(CultureInfo.InvariantCulture), 415, y, 74);
-                DesenharTexto(grafico, fonte, pincel, registro.TemperaturaRecebimento.ToString("0.##", CultureInfo.InvariantCulture), 475, y, 60);
+                DesenharTexto(grafico, fonte, pincel, registro.TemperaturaRecebimento.ToString("0.0", CultureInfo.InvariantCulture), 525, y, 60);
+                // DesenharTexto(grafico, fonte, pincel, registro.TemperaturaRecebimento.ToString("0.0", CultureInfo.InvariantCulture), 475, y, 60);
                 DesenharTexto(grafico, fonte, pincel, registro.PlacaCaminhao, 613, y, 47);
                 DesenharTexto(grafico, fonte, pincel, registro.HoraRecebimento.ToString("HH:mm"), 675, y, 39);
                 DesenharTexto(grafico, fonte, pincel, registro.TemperaturaBau.ToString("0.##", CultureInfo.InvariantCulture), 725, y, 43);

@@ -1,4 +1,4 @@
-using PdfSharpCore.Fonts;
+using PdfSharp.Fonts;
 
 namespace Piu.Api.Features.Relatorios;
 
