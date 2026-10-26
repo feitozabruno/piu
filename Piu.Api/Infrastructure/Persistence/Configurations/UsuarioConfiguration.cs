@@ -12,10 +12,11 @@ public class UsuarioConfiguration : IEntityTypeConfiguration<Usuario>
         builder.Property(u => u.Nome).IsRequired().HasMaxLength(UsuarioLimites.NomeMax);
         builder.Property(u => u.Cargo).IsRequired().HasMaxLength(UsuarioLimites.CargoMax);
         builder.Property(u => u.Ativo).IsRequired().HasDefaultValue(true);
+        builder.Property(u => u.Perfil).IsRequired().HasMaxLength(30).HasDefaultValue(Usuario.Funcionario);
 
         builder.Property(u => u.Incubatorio)
                .HasColumnType("citext")
-               .IsRequired();
+               .IsRequired(false);
 
         builder.HasOne<Incubatorio>()
                .WithMany()

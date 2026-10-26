@@ -11,6 +11,8 @@ import { Home } from "@/features/lotes/Home";
 import { TelaDeLogin } from "@/features/auth/TelaDeLogin";
 import { RotaProtegida } from "@/features/auth/RotaProtegida";
 import { MenuNavegacao } from "@/shared/components/MenuNavegacao";
+import { PainelAdministracao } from "@/features/admin/PainelAdministracao";
+import { PainelGerencia } from "@/features/admin/PainelGerencia";
 
 function RedirecionarSessaoExpirada() {
   const location = useLocation();
@@ -52,6 +54,22 @@ function App() {
           }
         />
         <Route path="/entrar" element={<TelaDeLogin />} />
+        <Route
+          path="/administracao"
+          element={
+            <RotaProtegida requiredProfile="Administrador">
+              <PainelAdministracao />
+            </RotaProtegida>
+          }
+        />
+        <Route
+          path="/gerencia"
+          element={
+            <RotaProtegida requiredProfile="Gerente">
+              <PainelGerencia />
+            </RotaProtegida>
+          }
+        />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

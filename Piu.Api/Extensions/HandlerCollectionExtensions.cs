@@ -5,6 +5,7 @@ using Piu.Api.Features.Lotes.CadastrarLote;
 using Piu.Api.Features.Lotes.ListarLotes;
 using Piu.Api.Features.Ovos.ConsultarOvo;
 using Piu.Api.Features.Ovos.ReceberOvo;
+using Piu.Api.Features.Admin.CriarIncubatorio;
 
 namespace Piu.Api.Extensions;
 
@@ -19,6 +20,7 @@ public static class HandlerCollectionExtensions
         services.AddScoped<ListarLotesHandler>();
         services.AddScoped<ReceberOvoHandler>();
         services.AddScoped<ConsultarOvoHandler>();
+        services.AddScoped<CriarIncubatorioHandler>();
 
         return services;
     }

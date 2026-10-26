@@ -1,0 +1,12 @@
+@baseUrl = http://localhost:5000/api/v1
+
+### Criar funcionário no incubatório do gerente (requer sessão de Gerente)
+POST {{baseUrl}}/gerente/funcionarios
+Content-Type: application/json
+
+{
+  "usuario": "operador.norte",
+  "senha": "Senha123",
+  "nome": "Operador do Norte",
+  "cargo": "Operador"
+}
