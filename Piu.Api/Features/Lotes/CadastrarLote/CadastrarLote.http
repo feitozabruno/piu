@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:5000
-@cookie = CfDJ8Lwv06s8QopBo5JWMm9RRuYOmen00oaHQ6BFgOvgf183ozBIaK06780l62iHEb0RidCweQaHUbFhDe980b3PVEJtNWu5ugAjjshWBZI98jQXTuH5wyxT2_rn7CAYS0hCNUGsvIHZqhiR37mdKuWZJVoPNAz3Ly7zj2bVC2FBrx9XqaOXjs1ytaKGOLkv4psTkY9RaCFz7OurJFwbAAf3A0xnL5x0ZGNbdJi3D44qUlomLN9LwW0hN8UuxqqRppeHsUW5DNL7kA9h_7hvjDqcg18fzj_V2l5KvkIhZud-KzyHTR5Olf-7G4b_x_RRFT_m_JdpYb9hCABckueUM_P-KtePrrINNJi1o9bLknluhn8puoqGXH17Ch4hJIVk8aQE3xtRoXc7THc1sTcLihq4g2hOnT2lXsMLA_gWyidZ-lFtEJrHUMx1sCkuMTsL6RTNVbBRVqPm6RV-NcSYliU2pcLiWVXt0j5OvF7Vr2YsvoKd2oSjyEgisVFB9-mCeWH3dTuy4UH-4EYh4PRmRnDTbGPAoUAZcNH-rUl3Vm5UHoD7uR8vIIGLaF4cDImVBO7DwwHITxrNCtxB-mXA-0gkJTw
+@cookie = CfDJ8Lwv06s8QopBo5JWMm9RRuaKtYSdVdI9MmWddGUpYkOKXVEmi8onjAWe-yubwviL63KoPC2uPwvg4i8Fu0_bKw_WmKbLp7YdQpu1iCDMLMdo0OSposWW-zPsDUg9QBcfRj6wOYFF_MGlOIKikt1Wl6X_6Fi-1Xb_tryg-_CkkTk1fiNnl9JjUW8P1bmzzyy0VsQYgEVEvbcI4Q-YhwjQp7FN-nWXLzizwCMwtiN8I_4O2v4RqnCRvlXmCB80D70k9uU9Ckwcid_J4BxowwuuN59qfXFYG9EB7IMA5Hu4Frs8a0n3ZQ9YfITx2id2RkATViXfybSKB8dd7EWEK-EM1ZcEBlVTIAoObHoywBR-VN1UeCd97-imkHTHm1fgLj4UyPSg9HepbTaMYYQ3EXwMTanFy0QWEfUxYvBxF-hK45K4Ugkl3sgJ-xpFTT41I_Z-Vpjb1Ji1N7fm4eTpiyMaogBC44lKeVjhedV6tCJhgUCiqBMrYxAphLq9yim22PqIvvdkMmWpqMMq_j1z8yXDCJgKFHsDSxy-a5V1P3mTrXMg53Nt4ucWma0r40aribrNGo5b4hzl0YU488N22I6Lh9Q
 
 ### Cadastrar Lote
 POST {{baseUrl}}/api/v1/lotes/
@@ -7,6 +7,6 @@ Content-Type: application/json
 Cookie: piu.session={{cookie}}
 
 {
-  "nome": "DRD01-010",
-  "dataNascimento": "2026-03-14"
+  "nome": "DRD02-010",
+  "dataNascimento": "2026-04-14"
 }

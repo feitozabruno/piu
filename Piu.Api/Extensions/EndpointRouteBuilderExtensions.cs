@@ -2,6 +2,7 @@ using Piu.Api.Features.Auth;
 using Piu.Api.Features.Incubatorios;
 using Piu.Api.Features.Lotes;
 using Piu.Api.Features.Ovos;
+using Piu.Api.Features.Relatorios;
 
 namespace Piu.Api.Extensions;
 
@@ -13,6 +14,7 @@ public static class EndpointRouteBuilderExtensions
         app.MapIncubatorios();
         app.MapLotes();
         app.MapOvos();
+        app.MapRelatorios();
 
         app.MapGet("/", () => "Hello, World!");
 
