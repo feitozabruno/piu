@@ -11,6 +11,7 @@ import { Home } from "@/features/lotes/Home";
 import { Lotes } from "@/features/lotes/Lotes";
 import { TelaDeLogin } from "@/features/auth/TelaDeLogin";
 import { Relatorios } from "@/features/relatorios/Relatorios";
+import { Ovos } from "@/features/ovos/Ovos";
 import { RotaProtegida } from "@/features/auth/RotaProtegida";
 import { MenuNavegacao } from "@/shared/components/MenuNavegacao";
 
@@ -66,6 +67,14 @@ function App() {
           element={
             <RotaProtegida>
               <Lotes />
+            </RotaProtegida>
+          }
+        />
+        <Route
+          path="/ovos"
+          element={
+            <RotaProtegida>
+              <Ovos />
             </RotaProtegida>
           }
         />

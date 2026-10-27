@@ -1,4 +1,4 @@
-import { Boxes, FileText, House, LogIn, LogOut } from "lucide-react";
+import { Boxes, Egg, FileText, House, LogIn, LogOut } from "lucide-react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/shared/components/ui/button";
 import { useAuth } from "@/features/auth/useAuth";
@@ -10,6 +10,7 @@ const reportsNavigationItem = {
   icon: FileText,
 };
 const lotsNavigationItem = { to: "/lotes", label: "Lotes", icon: Boxes };
+const eggsNavigationItem = { to: "/ovos", label: "Ovos recebidos", icon: Egg };
 const loginNavigationItem = { to: "/entrar", label: "Login", icon: LogIn };
 
 export function MenuNavegacao() {
@@ -24,7 +25,7 @@ export function MenuNavegacao() {
   const navigationItems = [
     homeNavigationItem,
     ...(isAuthenticated === true
-      ? [lotsNavigationItem, reportsNavigationItem]
+      ? [lotsNavigationItem, eggsNavigationItem, reportsNavigationItem]
       : []),
     ...(isAuthenticated === false ? [loginNavigationItem] : []),
   ];
@@ -49,7 +50,7 @@ export function MenuNavegacao() {
         </NavLink>
 
         <div
-          className="flex items-center gap-1 rounded-2xl border-2 border-zinc-950 bg-zinc-100 p-1 sm:gap-2"
+          className="flex max-w-[calc(100vw-88px)] items-center gap-1 overflow-x-auto rounded-2xl border-2 border-zinc-950 bg-zinc-100 p-1 sm:max-w-none sm:gap-2"
           aria-label="Navegação principal"
         >
           {navigationItems.map(({ to, label, icon: Icon }) => (
