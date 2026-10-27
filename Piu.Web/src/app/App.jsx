@@ -8,6 +8,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { Home } from "@/features/lotes/Home";
+import { Lotes } from "@/features/lotes/Lotes";
 import { TelaDeLogin } from "@/features/auth/TelaDeLogin";
 import { Relatorios } from "@/features/relatorios/Relatorios";
 import { RotaProtegida } from "@/features/auth/RotaProtegida";
@@ -57,6 +58,14 @@ function App() {
           element={
             <RotaProtegida>
               <Relatorios />
+            </RotaProtegida>
+          }
+        />
+        <Route
+          path="/lotes"
+          element={
+            <RotaProtegida>
+              <Lotes />
             </RotaProtegida>
           }
         />

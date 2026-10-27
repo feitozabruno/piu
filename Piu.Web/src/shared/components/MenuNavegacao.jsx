@@ -1,4 +1,4 @@
-import { FileText, House, LogIn, LogOut } from "lucide-react";
+import { Boxes, FileText, House, LogIn, LogOut } from "lucide-react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/shared/components/ui/button";
 import { useAuth } from "@/features/auth/useAuth";
@@ -9,6 +9,7 @@ const reportsNavigationItem = {
   label: "Relatórios",
   icon: FileText,
 };
+const lotsNavigationItem = { to: "/lotes", label: "Lotes", icon: Boxes };
 const loginNavigationItem = { to: "/entrar", label: "Login", icon: LogIn };
 
 export function MenuNavegacao() {
@@ -22,7 +23,9 @@ export function MenuNavegacao() {
 
   const navigationItems = [
     homeNavigationItem,
-    ...(isAuthenticated === true ? [reportsNavigationItem] : []),
+    ...(isAuthenticated === true
+      ? [lotsNavigationItem, reportsNavigationItem]
+      : []),
     ...(isAuthenticated === false ? [loginNavigationItem] : []),
   ];
 
