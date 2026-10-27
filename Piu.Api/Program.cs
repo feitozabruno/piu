@@ -1,6 +1,7 @@
 using PdfSharp.Fonts;
 using Piu.Api.Extensions;
 using Piu.Api.Features.Relatorios;
+using Piu.Api.Infrastructure.Persistence;
 
 GlobalFontSettings.FontResolver = new RelatorioFontResolver();
 var builder = WebApplication.CreateBuilder(args);
@@ -15,5 +16,10 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapPiuEndpoints();
+
+if (!app.Environment.IsEnvironment("Testing"))
+{
+    await app.SeedAsync();
+}
 
 app.Run();

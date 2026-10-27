@@ -45,7 +45,8 @@ public sealed class RelatorioOvosHandler(
                 ovo.Lote.IncubatorioIdentificador == usuario.Incubatorio
                 && ovo.HoraRecebimento >= inicio
                 && ovo.HoraRecebimento < fim)
-            .OrderBy(ovo => ovo.HoraRecebimento)
+            .OrderBy(ovo => ovo.Lote.Nome)
+            .ThenBy(ovo => ovo.HoraRecebimento)
             .Select(ovo => new RelatorioOvosResponse(
                 ovo.HoraRecebimento,
                 ovo.Lote.Nome,
@@ -107,12 +108,13 @@ public sealed class RelatorioOvosHandler(
 
                 DesenharTexto(grafico, fonte, pincel, data.ToString("dd/MM/yyyy"), 35, y, 62);
                 DesenharTexto(grafico, fonte, pincel, registro.Lote, 105, y, 76);
+                DesenharTexto(grafico, fonte, pincel, "AV1, AV2, AV3, AV4", 180, y, 100);
                 DesenharTexto(grafico, fonte, pincel, registro.NinhoIncubavel.ToString(CultureInfo.InvariantCulture), 290, y, 74);
                 DesenharTexto(grafico, fonte, pincel, registro.CamaIncubavel.ToString(CultureInfo.InvariantCulture), 415, y, 74);
                 DesenharTexto(grafico, fonte, pincel, registro.TemperaturaRecebimento.ToString("0.0", CultureInfo.InvariantCulture), 525, y, 60);
                 DesenharTexto(grafico, fonte, pincel, registro.PlacaCaminhao, 613, y, 47);
                 DesenharTexto(grafico, fonte, pincel, registro.HoraRecebimento.ToString("HH:mm"), 675, y, 39);
-                DesenharTexto(grafico, fonte, pincel, registro.TemperaturaBau.ToString("0.##", CultureInfo.InvariantCulture), 725, y, 43);
+                DesenharTexto(grafico, fonte, pincel, registro.TemperaturaBau.ToString("0.0", CultureInfo.InvariantCulture), 725, y, 43);
             }
         }
     }
