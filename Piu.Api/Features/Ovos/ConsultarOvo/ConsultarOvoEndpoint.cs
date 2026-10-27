@@ -7,8 +7,27 @@ public static class ConsultarOvoEndpoint
 {
     public static void Map(IEndpointRouteBuilder app)
     {
+        app.MapGet("/", ListarAsync)
+            .RequireAuthorization();
+
         app.MapGet("/{id:guid}", ConsultarAsync)
             .RequireAuthorization();
+    }
+
+    private static async Task<IResult> ListarAsync(
+        DateOnly? dataInicial,
+        DateOnly? dataFinal,
+        ClaimsPrincipal usuarioAutenticado,
+        ConsultarOvoHandler handler,
+        CancellationToken cancellationToken)
+    {
+        var ovos = await handler.ListarAsync(
+            dataInicial,
+            dataFinal,
+            usuarioAutenticado,
+            cancellationToken);
+
+        return Results.Ok(ovos.Select(ReceberOvoResponse.From));
     }
 
     private static async Task<IResult> ConsultarAsync(
