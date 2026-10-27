@@ -4,6 +4,7 @@ import {
   CheckCircle2,
   ClipboardList,
   LoaderCircle,
+  Pencil,
   Plus,
   RefreshCw,
   Search,
@@ -13,6 +14,8 @@ import { apiFetch } from "@/shared/lib/api";
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
 import { useLotes } from "@/features/lotes/useLotes";
+import { EditarLoteDialog } from "@/features/lotes/EditarLoteDialog";
+import { useEditarLote } from "@/features/lotes/useEditarLote";
 
 export function Lotes() {
   const { lotes, error, carregarLotes } = useLotes(true);
@@ -23,6 +26,7 @@ export function Lotes() {
   const [salvando, setSalvando] = useState(false);
   const [salvo, setSalvo] = useState(false);
   const [atualizando, setAtualizando] = useState(false);
+  const editor = useEditarLote(carregarLotes);
 
   const lotesFiltrados = useMemo(() => {
     const termo = busca.trim().toLocaleLowerCase();
@@ -266,15 +270,28 @@ export function Lotes() {
                         Nascimento: {formatarData(lote.dataNascimento)}
                       </p>
                     </div>
-                    <span
-                      className={`shrink-0 rounded-full px-3 py-1 text-xs font-black uppercase ${
-                        lote.ativo
-                          ? "bg-emerald-100 text-emerald-800"
-                          : "bg-zinc-200 text-zinc-700"
-                      }`}
-                    >
-                      {lote.ativo ? "Ativo" : "Inativo"}
-                    </span>
+                    <div className="flex shrink-0 items-center gap-2">
+                      <span
+                        className={`rounded-full px-3 py-1 text-xs font-black uppercase ${
+                          lote.ativo
+                            ? "bg-emerald-100 text-emerald-800"
+                            : "bg-zinc-200 text-zinc-700"
+                        }`}
+                      >
+                        {lote.ativo ? "Ativo" : "Inativo"}
+                      </span>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        onClick={() => editor.iniciar(lote)}
+                        disabled={!navigator.onLine}
+                        aria-label={`Editar lote ${lote.nome}`}
+                        className="size-9 rounded-lg border-2 border-zinc-950"
+                      >
+                        <Pencil className="size-4" aria-hidden="true" />
+                      </Button>
+                    </div>
                   </article>
                 ))}
               </div>
@@ -297,6 +314,7 @@ export function Lotes() {
           </section>
         </div>
       </div>
+      <EditarLoteDialog editor={editor} />
     </main>
   );
 }
