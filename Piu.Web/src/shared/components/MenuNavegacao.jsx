@@ -1,9 +1,14 @@
-import { House, LogIn, LogOut } from "lucide-react";
+import { FileText, House, LogIn, LogOut } from "lucide-react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/shared/components/ui/button";
 import { useAuth } from "@/features/auth/useAuth";
 
 const homeNavigationItem = { to: "/", label: "Home", icon: House };
+const reportsNavigationItem = {
+  to: "/relatorios",
+  label: "Relatórios",
+  icon: FileText,
+};
 const loginNavigationItem = { to: "/entrar", label: "Login", icon: LogIn };
 
 export function MenuNavegacao() {
@@ -17,6 +22,7 @@ export function MenuNavegacao() {
 
   const navigationItems = [
     homeNavigationItem,
+    ...(isAuthenticated === true ? [reportsNavigationItem] : []),
     ...(isAuthenticated === false ? [loginNavigationItem] : []),
   ];
 

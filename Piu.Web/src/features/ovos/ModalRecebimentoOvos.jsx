@@ -261,13 +261,13 @@ export function ModalRecebimentoOvos({ open, onOpenChange }) {
                 </p>
               )}
 
-                <Button
-                  type="submit"
-                  disabled={isFormSubmitting || isSaving}
-                  className="h-14 w-full rounded-xl border-2 border-zinc-950 bg-[#f6c945] text-lg font-black uppercase text-zinc-950 shadow-[0_4px_0_0_#18181b] hover:bg-[#ffd95f]"
-                >
-                  Registrar recebimento
-                </Button>
+              <Button
+                type="submit"
+                disabled={isFormSubmitting || isSaving}
+                className="h-14 w-full rounded-xl border-2 border-zinc-950 bg-[#f6c945] text-lg font-black uppercase text-zinc-950 shadow-[0_4px_0_0_#18181b] hover:bg-[#ffd95f]"
+              >
+                Registrar recebimento
+              </Button>
             </form>
           )}
         </div>

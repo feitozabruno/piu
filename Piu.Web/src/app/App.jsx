@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import { Home } from "@/features/lotes/Home";
 import { TelaDeLogin } from "@/features/auth/TelaDeLogin";
+import { Relatorios } from "@/features/relatorios/Relatorios";
 import { RotaProtegida } from "@/features/auth/RotaProtegida";
 import { MenuNavegacao } from "@/shared/components/MenuNavegacao";
 
@@ -48,6 +49,14 @@ function App() {
           element={
             <RotaProtegida>
               <Home />
+            </RotaProtegida>
+          }
+        />
+        <Route
+          path="/relatorios"
+          element={
+            <RotaProtegida>
+              <Relatorios />
             </RotaProtegida>
           }
         />
