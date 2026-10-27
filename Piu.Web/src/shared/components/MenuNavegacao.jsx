@@ -1,4 +1,14 @@
-import { Boxes, Egg, FileText, House, LogIn, LogOut } from "lucide-react";
+import {
+  Boxes,
+  Egg,
+  FileText,
+  House,
+  LogIn,
+  LogOut,
+  Menu,
+  X,
+} from "lucide-react";
+import { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/shared/components/ui/button";
 import { useAuth } from "@/features/auth/useAuth";
@@ -17,6 +27,7 @@ export function MenuNavegacao() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { isAuthenticated, error, logout } = useAuth(pathname);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   if (pathname === "/entrar") {
     return null;
@@ -39,8 +50,11 @@ export function MenuNavegacao() {
   }
 
   return (
-    <nav className="border-b-2 border-zinc-950 bg-white px-4 py-3 sm:px-8">
-      <div className="mx-auto flex max-w-7xl sm:px-8 lg:px-10 items-center justify-between gap-4">
+    <nav
+      className="border-b-2 border-zinc-950 bg-white px-4 py-3 sm:px-8"
+      aria-label="Navegação principal"
+    >
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 sm:px-8 lg:px-10">
         <NavLink
           to="/"
           aria-label="Ir para a página inicial"
@@ -49,20 +63,40 @@ export function MenuNavegacao() {
           Piu
         </NavLink>
 
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-lg"
+          aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+          aria-expanded={isMenuOpen}
+          aria-controls="menu-navegacao-opcoes"
+          onClick={() => setIsMenuOpen((isOpen) => !isOpen)}
+          className="rounded-xl border-2 border-zinc-950 text-zinc-950 hover:bg-[#f6c945] md:hidden"
+        >
+          {isMenuOpen ? (
+            <X aria-hidden="true" strokeWidth={2.5} />
+          ) : (
+            <Menu aria-hidden="true" strokeWidth={2.5} />
+          )}
+        </Button>
+
         <div
-          className="flex max-w-[calc(100vw-88px)] items-center gap-1 overflow-x-auto rounded-2xl border-2 border-zinc-950 bg-zinc-100 p-1 sm:max-w-none sm:gap-2"
-          aria-label="Navegação principal"
+          id="menu-navegacao-opcoes"
+          className={`w-full basis-full flex-col gap-1 rounded-2xl border-2 border-zinc-950 bg-zinc-100 p-1 sm:gap-2 md:flex md:w-auto md:basis-auto md:flex-row ${
+            isMenuOpen ? "flex" : "hidden"
+          }`}
         >
           {navigationItems.map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}
               to={to}
               end={to === "/"}
+              onClick={() => setIsMenuOpen(false)}
               className={({ isActive }) =>
-                `flex min-h-10 items-center gap-2 rounded-xl px-3 text-xs font-black uppercase tracking-[0.06em] transition-colors focus-visible:outline-4 focus-visible:outline-[#f6c945] sm:px-4 sm:text-sm ${
+                `flex min-h-10 items-center gap-2 rounded-xl px-3 text-xs font-black uppercase tracking-[0.06em] transition-colors focus-visible:outline-4 focus-visible:outline-[#f6c945] sm:px-4 sm:text-sm md:min-w-0 ${
                   isActive
-                    ? "bg-zinc-950 text-white"
-                    : "text-zinc-600 hover:bg-white hover:text-zinc-950"
+                    ? "bg-zinc-950 text-white md:w-auto"
+                    : "text-zinc-600 hover:bg-white hover:text-zinc-950 md:w-auto"
                 }`
               }
             >
@@ -73,9 +107,12 @@ export function MenuNavegacao() {
           {isAuthenticated === true && (
             <Button
               type="button"
-              onClick={handleLogout}
               aria-label="Sair da conta"
               title={error ?? "Sair da conta"}
+              onClick={() => {
+                setIsMenuOpen(false);
+                void handleLogout();
+              }}
               className="min-h-10 rounded-xl bg-transparent px-3 text-xs font-black uppercase tracking-[0.06em] text-zinc-600 shadow-none hover:bg-white hover:text-zinc-950 focus-visible:outline-4 focus-visible:outline-[#f6c945] sm:px-4 sm:text-sm"
             >
               <LogOut aria-hidden="true" className="size-4" strokeWidth={2.5} />
