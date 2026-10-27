@@ -25,18 +25,12 @@ public static class RelatorioOvosEndpoint
             usuarioAutenticado,
             cancellationToken);
 
-        if (resultado.Arquivos.Count == 0)
+        if (resultado.Conteudo is null)
             return Results.NoContent();
 
-        if (resultado.Arquivos.Count == 1)
-        {
-            var arquivo = resultado.Arquivos[0];
-            return Results.File(arquivo.Conteudo, "application/pdf", arquivo.Nome);
-        }
-
         return Results.File(
-            resultado.ComoZip(),
-            "application/zip",
-            $"controle-ovos-{dataInicial:yyyy-MM-dd}-a-{dataFinal:yyyy-MM-dd}.zip");
+            resultado.Conteudo,
+            "application/pdf",
+            $"controle-ovos-{dataInicial:yyyy-MM-dd}-a-{dataFinal:yyyy-MM-dd}.pdf");
     }
 }

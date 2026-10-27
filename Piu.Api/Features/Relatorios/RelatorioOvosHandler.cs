@@ -1,9 +1,9 @@
 using System.Globalization;
-using System.IO.Compression;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PdfSharp.Drawing;
+using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
 using Piu.Api.Exceptions;
 using Piu.Api.Features.Auth;
@@ -57,7 +57,14 @@ public sealed class RelatorioOvosHandler(
                 ovo.PlacaCaminhao))
             .ToListAsync(cancellationToken);
 
-        var arquivos = new List<RelatorioOvosArquivo>();
+        var caminhoFormulario = ObterCaminhoFormulario();
+        if (!File.Exists(caminhoFormulario))
+            throw new ApplicationErrorException(RelatorioOvosErros.FormularioIndisponivel);
+
+        using var entrada = File.OpenRead(caminhoFormulario);
+        using var formulario = PdfReader.Open(entrada, PdfDocumentOpenMode.Import);
+        using var documento = new PdfDocument();
+
         for (var data = dataInicial; data <= dataFinal; data = data.AddDays(1))
         {
             var registrosDoDia = registros
@@ -70,24 +77,24 @@ public sealed class RelatorioOvosHandler(
             if (registrosDoDia.Count > RelatorioOvosOptions.RegistrosPorPagina)
                 throw new ApplicationErrorException(RelatorioOvosErros.LimiteRegistrosExcedido);
 
-            arquivos.Add(new RelatorioOvosArquivo(
-                data,
-                GerarPdf(data, registrosDoDia)));
+            AdicionarPagina(documento, formulario.Pages[0], data, registrosDoDia);
         }
 
-        return new RelatorioOvosResult(arquivos);
+        if (documento.PageCount == 0)
+            return new RelatorioOvosResult(null);
+
+        using var saida = new MemoryStream();
+        documento.Save(saida, false);
+        return new RelatorioOvosResult(saida.ToArray());
     }
 
-    private byte[] GerarPdf(DateOnly data, IReadOnlyList<RelatorioOvosResponse> registros)
+    private static void AdicionarPagina(
+        PdfDocument documento,
+        PdfPage formulario,
+        DateOnly data,
+        IReadOnlyList<RelatorioOvosResponse> registros)
     {
-        var caminhoFormulario = ObterCaminhoFormulario();
-
-        if (!File.Exists(caminhoFormulario))
-            throw new ApplicationErrorException(RelatorioOvosErros.FormularioIndisponivel);
-
-        using var entrada = File.OpenRead(caminhoFormulario);
-        using var documento = PdfReader.Open(entrada, PdfDocumentOpenMode.Modify);
-        var pagina = documento.Pages[0];
+        var pagina = documento.AddPage(formulario);
         using (var grafico = XGraphics.FromPdfPage(pagina, XGraphicsPdfPageOptions.Append))
         {
             var fonte = new XFont("DejaVu Sans", _fontSize, XFontStyleEx.Regular);
@@ -108,10 +115,6 @@ public sealed class RelatorioOvosHandler(
                 DesenharTexto(grafico, fonte, pincel, registro.TemperaturaBau.ToString("0.##", CultureInfo.InvariantCulture), 725, y, 43);
             }
         }
-
-        using var saida = new MemoryStream();
-        documento.Save(saida, false);
-        return saida.ToArray();
     }
 
     private string ObterCaminhoFormulario()
@@ -150,29 +153,7 @@ public sealed class RelatorioOvosHandler(
     }
 }
 
-public sealed record RelatorioOvosArquivo(DateOnly Data, byte[] Conteudo)
-{
-    public string Nome => $"controle-ovos-{Data:yyyy-MM-dd}.pdf";
-}
-
-public sealed record RelatorioOvosResult(IReadOnlyList<RelatorioOvosArquivo> Arquivos)
-{
-    public byte[] ComoZip()
-    {
-        using var saida = new MemoryStream();
-        using (var zip = new ZipArchive(saida, ZipArchiveMode.Create, true))
-        {
-            foreach (var arquivo in Arquivos)
-            {
-                var entrada = zip.CreateEntry(arquivo.Nome, CompressionLevel.Fastest);
-                using var stream = entrada.Open();
-                stream.Write(arquivo.Conteudo);
-            }
-        }
-
-        return saida.ToArray();
-    }
-}
+public sealed record RelatorioOvosResult(byte[]? Conteudo);
 
 public sealed class RelatorioOvosOptions
 {

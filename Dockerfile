@@ -2,7 +2,6 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
 COPY Piu.Api/Piu.Api.csproj Piu.Api/
-COPY ["003290 - Controle de Ovos Recebidos das Granjas Matrizes_V02.pdf", "./"]
 RUN dotnet restore Piu.Api/Piu.Api.csproj
 
 COPY Piu.Api/ Piu.Api/
