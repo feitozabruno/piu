@@ -1,0 +1,25 @@
+@baseUrl = http://localhost:5000
+@cookie = substitua-pelo-cookie
+@loteId = substitua-pelo-id
+
+### Atualizar lote
+PUT {{baseUrl}}/api/v1/lotes/{{loteId}}
+Content-Type: application/json
+Cookie: piu.session={{cookie}}
+
+{
+  "nome": "DRD02-010",
+  "dataNascimento": "2026-04-14",
+  "ativo": true
+}
+
+### Atualizar lote inexistente
+PUT {{baseUrl}}/api/v1/lotes/00000000-0000-0000-0000-000000000000
+Content-Type: application/json
+Cookie: piu.session={{cookie}}
+
+{
+  "nome": "DRD02-010",
+  "dataNascimento": "2026-04-14",
+  "ativo": false
+}

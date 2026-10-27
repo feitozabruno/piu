@@ -24,7 +24,8 @@ public sealed class ListarLotesHandler(
             .Select(lote => new ListarLotesResponse(
                 lote.Id,
                 lote.Nome,
-                lote.DataNascimento))
+                lote.DataNascimento,
+                lote.Ativo))
             .ToListAsync();
     }
 }

@@ -1,5 +1,6 @@
 using Piu.Api.Features.Auth.CadastrarUsuario;
 using Piu.Api.Features.Auth.FazerLogin;
+using Piu.Api.Features.Lotes.AtualizarLote;
 using Piu.Api.Features.Incubatorios.CadastrarIncubatorio;
 using Piu.Api.Features.Lotes.CadastrarLote;
 using Piu.Api.Features.Lotes.ListarLotes;
@@ -17,6 +18,7 @@ public static class HandlerCollectionExtensions
         services.AddScoped<FazerLoginHandler>();
         services.AddScoped<CadastrarIncubatorioHandler>();
         services.AddScoped<CadastrarLoteHandler>();
+        services.AddScoped<AtualizarLoteHandler>();
         services.AddScoped<ListarLotesHandler>();
         services.AddScoped<ReceberOvoHandler>();
         services.AddScoped<ConsultarOvoHandler>();

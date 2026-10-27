@@ -266,8 +266,14 @@ export function Lotes() {
                         Nascimento: {formatarData(lote.dataNascimento)}
                       </p>
                     </div>
-                    <span className="shrink-0 rounded-full bg-emerald-100 px-3 py-1 text-xs font-black uppercase text-emerald-800">
-                      Ativo
+                    <span
+                      className={`shrink-0 rounded-full px-3 py-1 text-xs font-black uppercase ${
+                        lote.ativo
+                          ? "bg-emerald-100 text-emerald-800"
+                          : "bg-zinc-200 text-zinc-700"
+                      }`}
+                    >
+                      {lote.ativo ? "Ativo" : "Inativo"}
                     </span>
                   </article>
                 ))}

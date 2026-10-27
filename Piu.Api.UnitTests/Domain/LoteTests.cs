@@ -17,6 +17,7 @@ public class LoteTests
         Assert.NotEqual(Guid.Empty, resultado.Id);
         Assert.Equal(nome.ToUpperInvariant(), resultado.Nome);
         Assert.Equal(dataNascimento, resultado.DataNascimento);
+        Assert.True(resultado.Ativo);
     }
 
     [Fact]

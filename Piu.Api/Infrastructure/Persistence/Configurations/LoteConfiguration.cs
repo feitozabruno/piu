@@ -28,5 +28,8 @@ public class LoteConfiguration : IEntityTypeConfiguration<Lote>
             .IsUnique()
             .HasDatabaseName("IX_Lotes_IncubatorioIdentificador_Nome");
         builder.Property(l => l.DataNascimento).IsRequired();
+        builder.Property(l => l.Ativo)
+            .IsRequired()
+            .HasDefaultValue(true);
     }
 }

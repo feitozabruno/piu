@@ -5,9 +5,10 @@ namespace Piu.Api.Features.Lotes;
 
 public sealed class Lote
 {
-    public Guid Id { get; private set; }
+    public Guid Id { get; private set; } = Guid.NewGuid();
     public string Nome { get; private set; } = string.Empty;
     public DateOnly DataNascimento { get; private set; }
+    public bool Ativo { get; private set; } = true;
     public Incubatorio Incubatorio { get; private set; } = null!;
     public string IncubatorioIdentificador { get; private set; } = string.Empty;
 
@@ -15,7 +16,6 @@ public sealed class Lote
 
     private Lote(string nome, DateOnly dataNascimento, string incubatorioIdentificador)
     {
-        Id = Guid.NewGuid();
         Nome = nome;
         DataNascimento = dataNascimento;
         IncubatorioIdentificador = incubatorioIdentificador;
@@ -26,21 +26,22 @@ public sealed class Lote
         nome = nome?.Trim() ?? string.Empty;
         incubatorioIdentificador = incubatorioIdentificador?.Trim().ToUpperInvariant() ?? string.Empty;
 
-        if (nome.Length == 0) throw new DomainException(LoteErros.NomeObrigatorio);
-        if (nome.Length < LoteLimites.NomeMin) throw new DomainException(LoteErros.NomeCurto);
-        if (nome.Length > LoteLimites.NomeMax) throw new DomainException(LoteErros.NomeMuitoGrande);
-
-        if (dataNascimento == default) throw new DomainException(LoteErros.DataNascimentoObrigatoria);
-
-        if (dataNascimento > DateOnly.FromDateTime(DateTime.UtcNow))
-        {
-            throw new DomainException(LoteErros.DataNascimentoInvalida);
-        }
+        ValidarDados(nome, dataNascimento);
 
         if (incubatorioIdentificador.Length == 0)
             throw new DomainException(LoteErros.IncubatorioObrigatorio);
 
         return new Lote(nome.ToUpperInvariant(), dataNascimento, incubatorioIdentificador);
+    }
+
+    public void Atualizar(string nome, DateOnly dataNascimento, bool ativo)
+    {
+        nome = nome?.Trim() ?? string.Empty;
+        ValidarDados(nome, dataNascimento);
+
+        Nome = nome.ToUpperInvariant();
+        DataNascimento = dataNascimento;
+        Ativo = ativo;
     }
 
     public string CalcularIdadeEm(DateOnly data)
@@ -53,6 +54,17 @@ public sealed class Lote
         var dias = totalDias % 7;
 
         return $"{semanas},{dias}";
+    }
+
+    private static void ValidarDados(string nome, DateOnly dataNascimento)
+    {
+        if (nome.Length == 0) throw new DomainException(LoteErros.NomeObrigatorio);
+        if (nome.Length < LoteLimites.NomeMin) throw new DomainException(LoteErros.NomeCurto);
+        if (nome.Length > LoteLimites.NomeMax) throw new DomainException(LoteErros.NomeMuitoGrande);
+        if (dataNascimento == default) throw new DomainException(LoteErros.DataNascimentoObrigatoria);
+
+        if (dataNascimento > DateOnly.FromDateTime(DateTime.UtcNow))
+            throw new DomainException(LoteErros.DataNascimentoInvalida);
     }
 }
 
