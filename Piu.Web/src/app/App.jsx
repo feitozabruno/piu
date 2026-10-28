@@ -14,6 +14,7 @@ import { Relatorios } from "@/features/relatorios/Relatorios";
 import { Ovos } from "@/features/ovos/Ovos";
 import { RotaProtegida } from "@/features/auth/RotaProtegida";
 import { MenuNavegacao } from "@/shared/components/MenuNavegacao";
+import { Migrations } from "@/features/migrations/Migrations";
 
 function RedirecionarSessaoExpirada() {
   const location = useLocation();
@@ -75,6 +76,14 @@ function App() {
           element={
             <RotaProtegida>
               <Ovos />
+            </RotaProtegida>
+          }
+        />
+        <Route
+          path="/migrations"
+          element={
+            <RotaProtegida>
+              <Migrations />
             </RotaProtegida>
           }
         />

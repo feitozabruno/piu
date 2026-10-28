@@ -1,5 +1,6 @@
 import {
   Boxes,
+  Database,
   Egg,
   FileText,
   House,
@@ -21,6 +22,11 @@ const reportsNavigationItem = {
 };
 const lotsNavigationItem = { to: "/lotes", label: "Lotes", icon: Boxes };
 const eggsNavigationItem = { to: "/ovos", label: "Ovos recebidos", icon: Egg };
+const migrationsNavigationItem = {
+  to: "/migrations",
+  label: "Migrations",
+  icon: Database,
+};
 const loginNavigationItem = { to: "/entrar", label: "Login", icon: LogIn };
 
 export function MenuNavegacao() {
@@ -36,7 +42,12 @@ export function MenuNavegacao() {
   const navigationItems = [
     homeNavigationItem,
     ...(isAuthenticated === true
-      ? [lotsNavigationItem, eggsNavigationItem, reportsNavigationItem]
+      ? [
+          lotsNavigationItem,
+          eggsNavigationItem,
+          reportsNavigationItem,
+          migrationsNavigationItem,
+        ]
       : []),
     ...(isAuthenticated === false ? [loginNavigationItem] : []),
   ];

@@ -1,5 +1,5 @@
-using Piu.Api.Features.Lotes.CadastrarLote;
 using Piu.Api.Features.Lotes.AtualizarLote;
+using Piu.Api.Features.Lotes.CadastrarLote;
 using Piu.Api.Features.Lotes.ListarLotes;
 
 namespace Piu.Api.Features.Lotes;

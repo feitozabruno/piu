@@ -60,7 +60,8 @@ public sealed class CustomWebApplicationFactory
             new RespawnerOptions
             {
                 DbAdapter = DbAdapter.Postgres,
-                SchemasToInclude = ["public"]
+                SchemasToInclude = ["public"],
+                TablesToIgnore = ["__EFMigrationsHistory"]
             });
     }
 
