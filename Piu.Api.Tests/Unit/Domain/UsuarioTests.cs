@@ -1,7 +1,7 @@
 using Piu.Api.Exceptions;
 using Piu.Api.Features.Auth;
 
-namespace Piu.Api.UnitTests.Domain;
+namespace Piu.Api.Tests.Unit.Domain;
 
 public class UsuarioTests
 {

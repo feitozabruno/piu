@@ -2,9 +2,9 @@ using System.Net;
 using System.Net.Http.Json;
 using Piu.Api.Features.Lotes.CadastrarLote;
 using Piu.Api.Features.Lotes.ListarLotes;
-using Piu.Api.IntegrationTests.Fixtures;
+using Piu.Api.Tests.Integration.Fixtures;
 
-namespace Piu.Api.IntegrationTests.Features.Lotes;
+namespace Piu.Api.Tests.Integration.Features.Lotes;
 
 [Collection("API")]
 public sealed class ListarLotesTests(CustomWebApplicationFactory factory) : ApiIntegrationTestBase(factory)

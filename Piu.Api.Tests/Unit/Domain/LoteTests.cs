@@ -1,7 +1,7 @@
 using Piu.Api.Exceptions;
 using Piu.Api.Features.Lotes;
 
-namespace Piu.Api.UnitTests.Domain;
+namespace Piu.Api.Tests.Unit.Domain;
 
 public class LoteTests
 {

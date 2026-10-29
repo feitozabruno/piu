@@ -1,9 +1,9 @@
 using System.Net;
 using System.Net.Http.Json;
 using Piu.Api.Features.Auth.FazerLogin;
-using Piu.Api.IntegrationTests.Fixtures;
+using Piu.Api.Tests.Integration.Fixtures;
 
-namespace Piu.Api.IntegrationTests.Features.Auth;
+namespace Piu.Api.Tests.Integration.Features.Auth;
 
 [Collection("API")]
 public sealed class FazerLoginEndpointTests(CustomWebApplicationFactory factory) : ApiIntegrationTestBase(factory)

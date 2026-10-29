@@ -3,7 +3,7 @@ using Microsoft.Net.Http.Headers;
 using Piu.Api.Features.Auth.CadastrarUsuario;
 using Piu.Api.Features.Auth.FazerLogin;
 
-namespace Piu.Api.IntegrationTests.Fixtures;
+namespace Piu.Api.Tests.Integration.Fixtures;
 
 public sealed class AuthHelper(HttpClient client)
 {

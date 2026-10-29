@@ -2,9 +2,9 @@ using System.Net;
 using System.Net.Http.Json;
 using Piu.Api.Features.Incubatorios;
 using Piu.Api.Features.Incubatorios.CadastrarIncubatorio;
-using Piu.Api.IntegrationTests.Fixtures;
+using Piu.Api.Tests.Integration.Fixtures;
 
-namespace Piu.Api.IntegrationTests.Features.Incubatorios;
+namespace Piu.Api.Tests.Integration.Features.Incubatorios;
 
 [Collection("API")]
 public sealed class CadastrarIncubatorioTests(CustomWebApplicationFactory factory) : ApiIntegrationTestBase(factory)

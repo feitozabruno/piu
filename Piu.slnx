@@ -1,5 +1,4 @@
 <Solution>
     <Project Path="Piu.Api/Piu.Api.csproj" />
-    <Project Path="Piu.Api.UnitTests/Piu.Api.UnitTests.csproj" />
-    <Project Path="Piu.Api.IntegrationTests/Piu.Api.IntegrationTests.csproj" />
+    <Project Path="Piu.Api.Tests/Piu.Api.Tests.csproj" />
 </Solution>

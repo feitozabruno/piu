@@ -1,4 +1,4 @@
-namespace Piu.Api.IntegrationTests.Fixtures;
+namespace Piu.Api.Tests.Integration.Fixtures;
 
 public sealed record ApiValidationErrorResponse(
     string Title,

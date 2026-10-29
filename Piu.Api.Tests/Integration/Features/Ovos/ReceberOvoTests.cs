@@ -2,9 +2,9 @@ using System.Net;
 using System.Net.Http.Json;
 using Piu.Api.Features.Lotes.CadastrarLote;
 using Piu.Api.Features.Ovos.ReceberOvo;
-using Piu.Api.IntegrationTests.Fixtures;
+using Piu.Api.Tests.Integration.Fixtures;
 
-namespace Piu.Api.IntegrationTests.Features.Ovos;
+namespace Piu.Api.Tests.Integration.Features.Ovos;
 
 [Collection("API")]
 public sealed class ReceberOvoTests(CustomWebApplicationFactory factory)

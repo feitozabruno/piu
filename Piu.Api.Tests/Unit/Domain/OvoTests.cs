@@ -2,7 +2,7 @@ using Piu.Api.Exceptions;
 using Piu.Api.Features.Lotes;
 using Piu.Api.Features.Ovos;
 
-namespace Piu.Api.UnitTests.Domain;
+namespace Piu.Api.Tests.Unit.Domain;
 
 public sealed class OvoTests
 {

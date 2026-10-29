@@ -1,9 +1,9 @@
 using System.Net;
 using System.Net.Http.Json;
 using Piu.Api.Features.Migrations;
-using Piu.Api.IntegrationTests.Fixtures;
+using Piu.Api.Tests.Integration.Fixtures;
 
-namespace Piu.Api.IntegrationTests.Features.Migrations;
+namespace Piu.Api.Tests.Integration.Features.Migrations;
 
 [Collection("API")]
 public sealed class MigrationsTests(CustomWebApplicationFactory factory) : ApiIntegrationTestBase(factory)

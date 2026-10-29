@@ -9,7 +9,7 @@ using Piu.Api.Infrastructure.Persistence;
 using Respawn;
 using Testcontainers.PostgreSql;
 
-namespace Piu.Api.IntegrationTests.Fixtures;
+namespace Piu.Api.Tests.Integration.Fixtures;
 
 public sealed class CustomWebApplicationFactory
     : WebApplicationFactory<Program>, IAsyncLifetime
