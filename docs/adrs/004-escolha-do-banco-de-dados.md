@@ -1,4 +1,4 @@
-# ADR 005: Escolha do Banco de Dados (PostgreSQL)
+# ADR 004: Escolha do Banco de Dados (PostgreSQL)
 
 ## Status
 Aceito

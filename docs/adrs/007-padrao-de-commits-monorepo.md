@@ -1,4 +1,4 @@
-# ADR 009: Padrão de Versionamento (Conventional Commits para Monorepo)
+# ADR 007: Padrão de Versionamento (Conventional Commits para Monorepo)
 
 ## Status
 Aceito
@@ -19,7 +19,7 @@ Adotaremos o padrão **Conventional Commits com Escopo Composto**. A estrutura o
    * `feat(api/recebimento): cria endpoint post para registrar lote inicial`
    * `feat(web/auth): cria tela de login para operacao offline`
    * `fix(api/lotes): corrige soma de saldo no livro razao`
-   * `docs(root): adiciona adr 010 sobre convencao de commits`
+   * `docs(root): adiciona adr 007 sobre convencao de commits`
 
 ## Consequências
 * **Positivas:** 

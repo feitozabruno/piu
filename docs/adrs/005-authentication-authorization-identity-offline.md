@@ -1,4 +1,4 @@
-# ADR 006: Autenticação, Autorização e Contexto de Usuário (Identity) para Ambientes Offline
+# ADR 005: Autenticação, Autorização e Contexto de Usuário (Identity) para Ambientes Offline
 
 ## Status
 Aceito

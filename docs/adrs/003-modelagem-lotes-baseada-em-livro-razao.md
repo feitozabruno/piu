@@ -1,4 +1,4 @@
-# ADR 004: Modelagem de Lotes baseada em Livro Razão (Append-Only Ledger)
+# ADR 003: Modelagem de Lotes baseada em Livro Razão (Append-Only Ledger)
 
 ## Status
 Aceito
